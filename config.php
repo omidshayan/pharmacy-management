@@ -26,7 +26,7 @@ define('BASE_PATH', __DIR__);
 define('CURRENT_DOMAIN', currentDomain() . '/pharmacy-management');
 define('DISPLAY_ERROR', true);
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'souda_con_sis');
+define('DB_NAME', 'pharmacy_sis');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('WAREHOUSE_ID', 99099);

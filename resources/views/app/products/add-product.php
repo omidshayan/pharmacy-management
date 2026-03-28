@@ -135,7 +135,7 @@
                     </div>
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد دوا <?= _star ?></div>
+                            <div class="label-form mb5 fs14">نوع دوا <?= _star ?></div>
                             <select name="package_type" class="checkSelect">
                                 <option selected disabled>انتخاب نوع</option>
                                 <?php
