@@ -115,7 +115,7 @@ $remaining = (float)$invoice['total_amount'] - (float)$invoice['discount'] - (fl
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>نام محصول</th>
+                                    <th>نام دوا</th>
                                     <th>تعداد بسته</th>
                                     <th>تعداد عدد</th>
                                     <th>تعداد کل</th>

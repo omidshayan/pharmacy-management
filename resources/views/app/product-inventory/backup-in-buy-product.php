@@ -1,6 +1,6 @@
     <!-- start sidebar -->
     <?php
-    $title = 'خرید محصول جدید';
+    $title = 'خرید دوا جدید';
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/search.php');
     include_once('resources/views/scripts/live-search-seller.php');
@@ -57,7 +57,7 @@
 
 
         <div class="producInfos">
-            <div class="d-none product-name">نام محصول: <span></span></div>
+            <div class="d-none product-name">نام دوا: <span></span></div>
             <div class="d-none now-inventory">موجودی فعلی: <span class="quan"></span> <span class="unitType"></span> </div>
         </div>
 
@@ -69,13 +69,13 @@
                     <!-- search product -->
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">جستجوی محصول <?= _star ?> </div>
+                            <div class="label-form mb5 fs14">جستجوی دوا <?= _star ?> </div>
                             <input type="hidden" name="product_id" id="item_id">
                             <input type="text"
                                 class="checkInput"
                                 name="product_name"
                                 id="item_name"
-                                placeholder="نام محصول را جستجو نمایید"
+                                placeholder="نام دوا را جستجو نمایید"
                                 autocomplete="off"
                                 autofocus
                                 data-search-url="<?= url('search-product-purchase') ?>"
@@ -124,18 +124,18 @@
                         <span class="quantity"></span>
 
                         <div class="title-line m-auto">
-                            <span class="color-tow fs14">قیمت محصول</span>
+                            <span class="color-tow fs14">قیمت دوا</span>
                             <hr class="hr">
                         </div>
 
                         <div class="inputs d-flex">
                             <div class="one">
                                 <div class="label-form mb5 fs14">قیمت خرید هر بسته / واحد <?= _star ?> </div>
-                                <input type="text" class="checkInput" name="package_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                                <input type="text" class="checkInput" name="package_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                             </div>
                             <div class="one">
                                 <div class="label-form mb5 fs14">قیمت فروش هر بسته / واحد <?= _star ?> </div>
-                                <input type="text" class="checkInput" name="package_price_sell" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                                <input type="text" class="checkInput" name="package_price_sell" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                             </div>
                         </div>
 
@@ -161,7 +161,7 @@
                                 <input type="text" class="all_price" name="item_total_price" placeholder="قیمت کل" readonly />
                             </div>
                             <div class="one">
-                                <div class="label-form mb5 fs14">تخفیف به این محصول</div>
+                                <div class="label-form mb5 fs14">تخفیف به این دوا</div>
                                 <input type="text" name="discount" class="discount" placeholder="تخفیف را وارد نمائید" />
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام محصول</th>
+                            <th>نام دوا</th>
                             <th>تعداد بسته</th>
                             <th>تعداد عدد</th>
                             <th>تعداد کل</th>
@@ -394,7 +394,7 @@
                     <thead>
                         <tr>
                             <th>شماره</th>
-                            <th>نام محصول</th>
+                            <th>نام دوا</th>
                             <th>کارتن</th>
                             <th>فی کارتن</th>
                             <th>عدد</th>
@@ -505,7 +505,7 @@
 
             document.querySelectorAll(".delete-product").forEach(function(element) {
                 element.addEventListener("click", function(event) {
-                    let confirmDelete = confirm("آیا از حذف محصول اطمینان دارید؟");
+                    let confirmDelete = confirm("آیا از حذف دوا اطمینان دارید؟");
                     if (!confirmDelete) {
                         event.preventDefault();
                     }

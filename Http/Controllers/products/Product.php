@@ -104,7 +104,7 @@ class Product extends App
         )->fetch();
 
         if ($exists) {
-            $this->flashMessage('error', 'این محصول قبلاً در این شعبه ثبت شده است');
+            $this->flashMessage('error', 'این دوا قبلاً در این شعبه ثبت شده است');
         }
 
         // check for attributes
@@ -276,7 +276,7 @@ class Product extends App
         )->fetch();
 
         if ($exists) {
-            $this->flashMessage('error', 'این محصول قبلاً در این شعبه ثبت شده است');
+            $this->flashMessage('error', 'این دوا قبلاً در این شعبه ثبت شده است');
         }
 
         // attributes

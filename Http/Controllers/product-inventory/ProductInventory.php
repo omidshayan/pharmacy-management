@@ -206,7 +206,7 @@ class ProductInventory extends App
         $required = ['product_id', 'product_name', 'package_price_buy'];
         foreach ($required as $field) {
             if (empty($request[$field])) {
-                $this->send_json_response(false, "قیمت محصول ارسال نشده یا به درستی ثبت نشده است");
+                $this->send_json_response(false, "قیمت دوا ارسال نشده یا به درستی ثبت نشده است");
                 exit();
             }
         }

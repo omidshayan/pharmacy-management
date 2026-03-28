@@ -343,7 +343,7 @@ class Sale extends App
                 )->fetch();
 
                 if (!$existingInventory) {
-                    throw new \Exception("محصول {$item['product_name']} در سیستم تعریف نشده است!");
+                    throw new \Exception("دوا {$item['product_name']} در سیستم تعریف نشده است!");
                 }
 
                 $sellQtyTotal = ((float)$item['package_qty'] * (float)$item['quantity_in_pack']) + (float)$item['unit_qty'];

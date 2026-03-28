@@ -198,7 +198,7 @@
                             $('input[name="unit_qty"]').val("").closest('.one').hide();
                         }
                     } else {
-                        alert('خطا در دریافت اطلاعات محصول!');
+                        alert('خطا در دریافت اطلاعات دوا!');
                     }
                 },
                 error: function(xhr) {

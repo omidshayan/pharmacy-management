@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `attributes` (
 --
 
 INSERT INTO `attributes` (`id`, `branch_id`, `att_name`, `att_type`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(14, 1, 'محصول جایزه دار', 'checkbox', 1, 'محمد', '2026-02-20 15:56:26', NULL);
+(14, 1, 'دوا جایزه دار', 'checkbox', 1, 'محمد', '2026-02-20 15:56:26', NULL);
 
 -- --------------------------------------------------------
 

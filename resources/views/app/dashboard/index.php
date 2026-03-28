@@ -26,7 +26,7 @@
             </svg>
           </div>
           <div class="report-text">
-            <span>تعداد محصولات ثبت شده <div class="d-flex color-orange">22 محصول</div></span>
+            <span>تعداد دواها ثبت شده <div class="d-flex color-orange">22 دوا</div></span>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
             </svg>
           </div>
           <div class="report-text">
-            <span>موجودی کل <div class="d-flex color-orange">22 محصول</div></span>
+            <span>موجودی کل <div class="d-flex color-orange">22 دوا</div></span>
           </div>
         </div>
         <div class="report-item">

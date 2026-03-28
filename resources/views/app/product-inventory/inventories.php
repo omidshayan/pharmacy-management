@@ -21,7 +21,7 @@ include_once('public/alerts/error.php');
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>نام محصول</th>
+                    <th>نام دوا</th>
                     <th>موجودی کل</th>
                     <?php
                     if ($hasWarehouse) {

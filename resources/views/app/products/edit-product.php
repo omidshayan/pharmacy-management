@@ -7,8 +7,8 @@
     // help sections
     $helps = [
         'add-product' => [
-            'title' => 'راهنمای ثبت محصول جدید',
-            'content' => '<hr class="hr mb5"><span class="color-orange">1.)</span> تعداد / مقدار در هر واحد: اگر این عدد 1 باشه یعنی محصول دارای واحد کوچکتر نیست و در این صورت انتخاب واحد کوچکتر غیر فعال است و نمی توانید انتخاب نمایید، اما اگر مقدار از یک بیشتر باشه انتخاب واحد کوچکتر فعال می شود و حتما باید یک واحد کوچکتر انتخاب نمایید تا محصول ثبت شود.
+            'title' => 'راهنمای ثبت دوا جدید',
+            'content' => '<hr class="hr mb5"><span class="color-orange">1.)</span> تعداد / مقدار در هر واحد: اگر این عدد 1 باشه یعنی دوا دارای واحد کوچکتر نیست و در این صورت انتخاب واحد کوچکتر غیر فعال است و نمی توانید انتخاب نمایید، اما اگر مقدار از یک بیشتر باشه انتخاب واحد کوچکتر فعال می شود و حتما باید یک واحد کوچکتر انتخاب نمایید تا دوا ثبت شود.
             </br>
             <span class="color-orange">2.)</span> اگر قیمت فروش بسته با قیمت فروش واحد (عددی) فرق می کرد، می تواند چک باکس (قیمت عدد مستقل باشد) را فعال نمایید و قیمت فروش واحد را تغییر دهید.
             '
@@ -103,7 +103,7 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> ویرایش محصول: <?= $product['product_name'] ?>
+        <div class="content-title"> ویرایش دوا: <?= $product['product_name'] ?>
             <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
         </div>
         <?php
@@ -119,8 +119,8 @@
 
                     <div class="inputs d-flex mb30">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نام محصول <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= $product['product_name'] ?>" name="product_name" placeholder="نام محصول را وارد نمایید" maxlength="124" />
+                            <div class="label-form mb5 fs14">نام دوا <?= _star ?> </div>
+                            <input type="text" class="checkInput" value="<?= $product['product_name'] ?>" name="product_name" placeholder="نام دوا را وارد نمایید" maxlength="124" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">انتخاب دسته بندی <?= _star ?></div>
@@ -145,7 +145,7 @@
 
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد محصول <?= _star ?></div>
+                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد دوا <?= _star ?></div>
                             <?php
                             $selectedPackageType = $product['package_type'];
                             ?>
@@ -191,18 +191,18 @@
                     </div>
 
                     <div class="title-line m-auto">
-                        <span class="color-tow fs14">جزئیات قیمت محصول</span>
+                        <span class="color-tow fs14">جزئیات قیمت دوا</span>
                         <hr class="hr">
                     </div>
 
                     <div class="inputs d-flex">
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت خرید هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_buy']) ?>" name="package_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_buy']) ?>" name="package_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت فروش هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_sell']) ?>" name="package_price_sell" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_sell']) ?>" name="package_price_sell" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                     </div>
 
@@ -259,7 +259,7 @@
                             </div>
                             <div class="inputs d-flex">
                                 <div class="one">
-                                    <div class="label-form mb5 fs14">انتخاب عکس محصول</div>
+                                    <div class="label-form mb5 fs14">انتخاب عکس دوا</div>
                                     <input type="file" id="image" name="product_image" accept="image/*">
                                 </div>
                             </div>
@@ -272,7 +272,7 @@
                     <!-- check for attributes -->
                     <?php
                     if ($checkboxAtts || $textAtts) { ?>
-                        <div class="accordion-title color-orange">ویژه‌گی‌های محصول</div>
+                        <div class="accordion-title color-orange">ویژه‌گی‌های دوا</div>
                         <div class="accordion-content">
                             <div class="child-accordioin">
 

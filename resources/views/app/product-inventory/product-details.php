@@ -1,6 +1,6 @@
     <!-- start sidebar -->
     <?php
-    $title = 'جزئیات محصول: ' . $product['product_name'];
+    $title = 'جزئیات دوا: ' . $product['product_name'];
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/change-status.php');
     include_once('resources/views/scripts/show-img-modal.php');
@@ -15,13 +15,13 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> جزئیات محصول: <?= $product['product_name'] ?></div>
+        <div class="content-title"> جزئیات دوا: <?= $product['product_name'] ?></div>
         <br />
         <!-- start page content -->
         <div class="box-container">
             <div class="details">
                 <div class="detail-item d-flex">
-                    <div class="w100 m10 center">نام محصول</div>
+                    <div class="w100 m10 center">نام دوا</div>
                     <div class="w100 m10 center"><?= $product['product_name'] ?></div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
             </div>
             <div class="details">
                 <div class="detail-item d-flex">
-                    <div class="w100 m10 center">کد محصول</div>
+                    <div class="w100 m10 center">کد دوا</div>
                     <div class="w100 m10 center"><?= ($product['product_code']) ? $product['product_code'] : '- - - -' ?></div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
             </div>
             <div class="details">
                 <div class="detail-item flex-justify-align">
-                    <div class="w100 m10 center">عکس محصول</div>
+                    <div class="w100 m10 center">عکس دوا</div>
                     <div class="w100 m10 center flex-justify-align">
                         <?= $product['product_image']
                             ? '<img class="w50 cursor-p" src="' . asset('public/images/products/' . $product['product_image']) . '" alt="logo" onclick="openModal(\'' . asset('public/images/products/' . $product['product_image']) . '\')">'

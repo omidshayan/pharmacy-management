@@ -7,7 +7,7 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> ویرایش محصول: <?= $product['product_name'] ?>
+        <div class="content-title"> ویرایش دوا: <?= $product['product_name'] ?>
             <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
         </div>
         <?php
@@ -22,8 +22,8 @@
 
                     <div class="inputs d-flex mb30">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نام محصول <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= $product['product_name'] ?>" name="product_name" placeholder="نام محصول را وارد نمایید" maxlength="124" />
+                            <div class="label-form mb5 fs14">نام دوا <?= _star ?> </div>
+                            <input type="text" class="checkInput" value="<?= $product['product_name'] ?>" name="product_name" placeholder="نام دوا را وارد نمایید" maxlength="124" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">انتخاب دسته بندی <?= _star ?></div>
@@ -48,7 +48,7 @@
 
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد محصول <?= _star ?></div>
+                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد دوا <?= _star ?></div>
                             <?php
                             $selectedPackageType = $product['package_type'];
                             ?>
@@ -79,11 +79,11 @@
                     <div class="inputs d-flex">
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت خرید هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_buy']) ?>" name="package_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_buy']) ?>" name="package_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت فروش هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_sell']) ?>" name="package_price_sell" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($product['package_price_sell']) ?>" name="package_price_sell" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                     </div>
 
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="title-line m-auto">
-                        <span class="color-tow fs14">جزئیات قیمت محصول</span>
+                        <span class="color-tow fs14">جزئیات قیمت دوا</span>
                         <hr class="hr">
                     </div>
 
@@ -111,22 +111,22 @@
                     <div class="inputs d-flex">
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت خرید هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($unitPrices['buy']) ?>" name="package_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($unitPrices['buy']) ?>" name="package_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت فروش هر بسته / واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= number_format($unitPrices['buy']) ?>" name="package_price_sell" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= number_format($unitPrices['buy']) ?>" name="package_price_sell" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                     </div>
 
                     <div class="inputs d-flex mb30">
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت خرید واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= old('unit_price_buy') ?>" name="unit_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= old('unit_price_buy') ?>" name="unit_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">قیمت فروش هر واحد <?= _star ?> </div>
-                            <input type="text" class="checkInput" value="<?= old('unit_price_sell') ?>" name="unit_price_sell" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <input type="text" class="checkInput" value="<?= old('unit_price_sell') ?>" name="unit_price_sell" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                     </div>
 
@@ -161,7 +161,7 @@
                     </div>
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب عکس محصول</div>
+                            <div class="label-form mb5 fs14">انتخاب عکس دوا</div>
                             <input type="file" id="image" name="product_image" accept="image/*">
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                     <!-- <div class="inputs d-flex">
                         <label class="d-flex align-center">
                             <input type="checkbox" class="checkbox-select mt15" name="award" <?= ($product['award'] == 1) ? 'checked' : '' ?>>
-                            <div class="label-form mb5 fs16">محصول جایزه‌دار</div>
+                            <div class="label-form mb5 fs16">دوا جایزه‌دار</div>
                         </label>
                     </div> -->
 

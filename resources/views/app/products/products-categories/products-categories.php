@@ -1,5 +1,5 @@
 <?php
-$title = 'دسته بندی محصولات';
+$title = 'دسته بندی دواها';
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
@@ -7,7 +7,7 @@ include_once('public/alerts/toastr.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> مدیریت دسته بندی های محصولات
+    <div class="content-title"> مدیریت دسته بندی های دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php

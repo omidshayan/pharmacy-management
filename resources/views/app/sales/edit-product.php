@@ -9,7 +9,7 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> ویرایش محصول: <?= $product['product_name'] ?>
+        <div class="content-title"> ویرایش دوا: <?= $product['product_name'] ?>
             <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
         </div>
         <?php
@@ -24,12 +24,12 @@
                 <form action="<?= url('edit-product-store/' . $product['id']) ?>" method="POST" enctype="multipart/form-data">
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نام محصول <?= _star ?> </div>
-                            <input type="text" class="checkInput" name="product_name" value="<?= $product['product_name'] ?>" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                            <div class="label-form mb5 fs14">نام دوا <?= _star ?> </div>
+                            <input type="text" class="checkInput" name="product_name" value="<?= $product['product_name'] ?>" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">کد محصول</div>
-                            <input type="text" name="product_code" value="<?= $product['product_code'] ?>" placeholder="کد محصول را وارد نمایید" maxlength="40" />
+                            <div class="label-form mb5 fs14">کد دوا</div>
+                            <input type="text" name="product_code" value="<?= $product['product_code'] ?>" placeholder="کد دوا را وارد نمایید" maxlength="40" />
                         </div>
                     </div>
                     <div class="inputs d-flex">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب عکس محصول</div>
+                            <div class="label-form mb5 fs14">انتخاب عکس دوا</div>
                             <input type="file" id="image" name="product_image" accept="image/*">
                         </div>
                     </div>

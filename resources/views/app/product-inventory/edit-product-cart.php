@@ -1,6 +1,6 @@
     <!-- start sidebar -->
     <?php
-    $title = 'ویرایش محصول: ' . $product_cart['product_name'];
+    $title = 'ویرایش دوا: ' . $product_cart['product_name'];
     include_once('resources/views/layouts/header.php');
     // include_once('public/alerts/check-inputs.php');
     include_once('public/alerts/error.php');
@@ -9,7 +9,7 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> ویرایش محصول: <?= $product_cart['product_name'] ?></div>
+        <div class="content-title"> ویرایش دوا: <?= $product_cart['product_name'] ?></div>
 
         <!-- start page content -->
         <div class="box-container">
@@ -41,7 +41,7 @@
 
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">تخفیف به این محصول</div>
+                            <div class="label-form mb5 fs14">تخفیف به این دوا</div>
                             <input type="text" name="discount" value="<?= ($product_cart['discount']) ? number_format($product_cart['discount']) : '' ?>" class="discount" placeholder="تخفیف را وارد نمائید" />
                         </div>
                     </div>

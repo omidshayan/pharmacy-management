@@ -144,7 +144,7 @@ $(document).ready(function() {
         syncSellPrices('unit');
     });
 
-    // === سرچ محصول (همان منطق قبلی) ===
+    // === سرچ دوا (همان منطق قبلی) ===
     $productName.on('keyup', function(e) {
         const query = $(this).val();
 
@@ -211,7 +211,7 @@ $(document).ready(function() {
         if ($(this).val().length) $backResponse.show();
     });
 
-    // === دریافت اطلاعات محصول و مقداردهی فرم ===
+    // === دریافت اطلاعات دوا و مقداردهی فرم ===
     function selectProduct(id, name) {
         $('#item_id').val(id);
         $productName.val(name);
@@ -260,7 +260,7 @@ $(document).ready(function() {
                     $unitPriceBuy.val(formatNumber(Number(unitPriceBuy.toFixed(2)))).prop('disabled', false);
                     $unitPriceSell.val(formatNumber(Number(unitPriceSell.toFixed(2)))).prop('disabled', false);
                 } else {
-                    // محصول بدون واحد: فیلدها را پنهان و خالی کن و disabled باشن
+                    // دوا بدون واحد: فیلدها را پنهان و خالی کن و disabled باشن
                     $unitQty.val('').closest('.one').hide();
                     $unitPriceBuy.val('').closest('.one').hide();
                     $unitPriceSell.val('').closest('.one').hide();
@@ -279,7 +279,7 @@ $(document).ready(function() {
                 // محاسبه اولیه
                 calculateTotals();
             } else {
-                alert('خطا در دریافت اطلاعات محصول!');
+                alert('خطا در دریافت اطلاعات دوا!');
             }
         }, 'json').fail(function() {
             console.log('error fetching product info');

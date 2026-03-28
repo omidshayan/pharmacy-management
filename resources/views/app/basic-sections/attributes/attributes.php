@@ -1,5 +1,5 @@
 <?php
-$title = 'مدیریت ویژه‌گی‌های محصول';
+$title = 'مدیریت ویژه‌گی‌های دوا';
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
@@ -7,7 +7,7 @@ include_once('public/alerts/toastr.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> مدیریت ویژه‌گی‌های محصول
+    <div class="content-title"> مدیریت ویژه‌گی‌های دوا
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php

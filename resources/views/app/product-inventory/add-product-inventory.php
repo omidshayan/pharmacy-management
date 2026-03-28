@@ -1,5 +1,5 @@
     <?php
-    $title = 'خرید محصول جدید';
+    $title = 'خرید دوا جدید';
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/live-search-seller.php');
     include_once('public/alerts/error.php');
@@ -20,7 +20,7 @@
             'title' => 'لیست بِل',
             'content' => '1. تعداد بسته و تعداد عدد نمی تواند هر دو 0 باشن.
             </br>
-            2. محصولاتی که تعداد عددی نداشته باشن را نمی توان تغییر داد و همیشه 0 هستن
+            2. دواهای که تعداد عددی نداشته باشن را نمی توان تغییر داد و همیشه 0 هستن
             '
         ],
     ];
@@ -81,7 +81,7 @@
                             <div class="insert">
                                 <div class="inputs d-flex">
                                     <div class="one">
-                                        <div class="label-form mb5 fs14">جستجوی محصول <?= _star ?></div>
+                                        <div class="label-form mb5 fs14">جستجوی دوا <?= _star ?></div>
                                         <a href="#" class="color search-icon-database-s top23">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-10 search-icon w17">
                                                 <circle cx="11" cy="11" r="8"></circle>
@@ -92,7 +92,7 @@
                                         <input
                                             type="text"
                                             class="p5 fs15 input w100 live-search"
-                                            placeholder="جستجوی محصول..."
+                                            placeholder="جستجوی دوا..."
                                             autofocus
                                             id="search_input"
 
@@ -130,7 +130,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>نام محصول</th>
+                                        <th>نام دوا</th>
                                         <th>تعداد بسته</th>
                                         <th>تعداد عدد</th>
                                         <th>تعداد کل</th>
@@ -233,7 +233,7 @@
                                                     <div class="one">
                                                         <div class="label-form mb5 fs14">محل قرارگیری کالاهای این بِل</div>
                                                         <select name="warehouse_id">
-                                                            <option selected disabled>محل قرارگیری محصول را انتخاب نمایید</option>
+                                                            <option selected disabled>محل قرارگیری دوا را انتخاب نمایید</option>
                                                             <?php
                                                             foreach ($warehouses as $warehouse) { ?>
                                                                 <option value="<?= $warehouse['id'] ?>"><?= $warehouse['warehouse_name'] ?></option>

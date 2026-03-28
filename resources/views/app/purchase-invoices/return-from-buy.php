@@ -36,10 +36,10 @@
                     <!-- search product -->
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">جستجوی محصول <?= _star ?> </div>
+                            <div class="label-form mb5 fs14">جستجوی دوا <?= _star ?> </div>
                             <input type="hidden" name="product_id" id="product_id">
                             <div id="user_details"></div>
-                            <input type="text" class="checkInput" name="product_name" id="product_name" placeholder="نام محصول را جستجو نمایید" autocomplete="off" autofocus />
+                            <input type="text" class="checkInput" name="product_name" id="product_name" placeholder="نام دوا را جستجو نمایید" autocomplete="off" autofocus />
                         </div>
                         <ul class="search-back d-none" id="backResponse">
                             <li class="res search-item color" role="option"></li>
@@ -65,18 +65,18 @@
                         </div>
 
                         <div class="title-line m-auto">
-                            <span class="color-tow fs14">قیمت محصول</span>
+                            <span class="color-tow fs14">قیمت دوا</span>
                             <hr class="hr">
                         </div>
 
                         <div class="inputs d-flex">
                             <div class="one">
                                 <div class="label-form mb5 fs14">قیمت خرید هر بسته / واحد <?= _star ?> </div>
-                                <input type="text" class="checkInput" name="package_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                                <input type="text" class="checkInput" name="package_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                             </div>
                             <div class="one">
                                 <div class="label-form mb5 fs14">قیمت خرید هر دانه / عدد <?= _star ?> </div>
-                                <input type="text" class="" name="unit_price_buy" placeholder="نام محصول را وارد نمایید" maxlength="40" />
+                                <input type="text" class="" name="unit_price_buy" placeholder="نام دوا را وارد نمایید" maxlength="40" />
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام محصول</th>
+                            <th>نام دوا</th>
                             <th>تعداد بسته</th>
                             <th>تعداد عدد</th>
                             <th>تعداد کل</th>
@@ -257,7 +257,7 @@
 
             document.querySelectorAll(".delete-product").forEach(function(element) {
                 element.addEventListener("click", function(event) {
-                    let confirmDelete = confirm("آیا از حذف محصول اطمینان دارید؟");
+                    let confirmDelete = confirm("آیا از حذف دوا اطمینان دارید؟");
                     if (!confirmDelete) {
                         event.preventDefault();
                     }

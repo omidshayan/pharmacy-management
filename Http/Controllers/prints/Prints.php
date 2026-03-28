@@ -35,7 +35,7 @@ class Prints extends App
             exit();
         }
 
-        // 3. آیتم‌های داخل بِل به همراه جزئیات محصول
+        // 3. آیتم‌های داخل بِل به همراه جزئیات دوا
         $invoice_items = $this->db->select(
             'SELECT 
             sii.*, 

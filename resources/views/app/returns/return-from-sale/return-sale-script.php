@@ -176,7 +176,7 @@
                         $('#alert')
                             .removeClass('error')
                             .addClass('success')
-                            .text(response.message || 'محصول با موفقیت به سبد خرید اضافه شد.')
+                            .text(response.message || 'دوا با موفقیت به سبد خرید اضافه شد.')
                             .fadeIn()
                             .delay(300)
                             .fadeOut();
@@ -209,7 +209,7 @@
                     $('#alert')
                         .removeClass('success')
                         .addClass('error')
-                        .text('خطا در ارسال محصول به سرور. لطفاً دوباره تلاش کنید.')
+                        .text('خطا در ارسال دوا به سرور. لطفاً دوباره تلاش کنید.')
                         .fadeIn()
                         .delay(5000)
                         .fadeOut();

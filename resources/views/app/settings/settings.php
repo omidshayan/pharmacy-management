@@ -30,7 +30,7 @@ $settingToggles = [
         'id'      => 'expiration_dateStatus',
         'key'     => 'expiration_date',
         'url'     => 'change-status-expiration',
-        'tooltip' => 'اگر این قسمت فعال باشد، فیلد تاریخ انقضا در فرم خرید محصول نمایش داده می شود'
+        'tooltip' => 'اگر این قسمت فعال باشد، فیلد تاریخ انقضا در فرم خرید دوا نمایش داده می شود'
     ],
     [
         'title'   => 'نمایش راهنمای هر بخش',

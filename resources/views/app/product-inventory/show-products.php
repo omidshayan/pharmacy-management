@@ -1,5 +1,5 @@
 <?php
-$title = 'نمایش محصولات';
+$title = 'نمایش دواها';
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/error.php');
@@ -7,7 +7,7 @@ include_once('public/alerts/error.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> نمایش محصولات
+    <div class="content-title"> نمایش دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php
@@ -22,7 +22,7 @@ include_once('public/alerts/error.php');
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>نام محصول</th>
+                    <th>نام دوا</th>
                     <th>دسته بندی</th>
                     <th>بسته‌بندی / واحد</th>
                     <th>وضعیت</th>

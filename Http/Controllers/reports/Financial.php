@@ -33,7 +33,7 @@ class Financial extends App
         $product = $this->db->select("SELECT id, product_name, unit_type, package_type, quantity_in_pack FROM products WHERE id = ?", [$productId])->fetch();
 
         if (!$product) {
-            $this->flashMessage('error', 'محصول یافت نشد!');
+            $this->flashMessage('error', 'دوا یافت نشد!');
             return;
         }
 
@@ -44,7 +44,7 @@ class Financial extends App
             w.warehouse_name,
             i.invoice_number,
             i.id AS real_invoice_id,
-            p.quantity_in_pack -- گرفتن ضریب بسته از جدول محصولات
+            p.quantity_in_pack -- گرفتن ضریب بسته از جدول دواها
             FROM inventory_movements AS m
             LEFT JOIN warehouses AS w ON m.warehouse_id = w.id
             LEFT JOIN invoices AS i ON m.invoice_id = i.id

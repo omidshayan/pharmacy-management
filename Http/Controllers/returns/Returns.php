@@ -805,7 +805,7 @@ class Returns extends App
                 )->fetch();
 
                 if (!$existingInventory || (float)$existingInventory['quantity'] < $returnQtyTotal) {
-                    throw new \Exception("موجودی محصول {$item['product_name']} برای مرجوعی کافی نیست!");
+                    throw new \Exception("موجودی دوا {$item['product_name']} برای مرجوعی کافی نیست!");
                 }
 
                 // ۲. کسر از FIFO (پیدا کردن بچ‌های ورودی برای کسر remaining_qty)

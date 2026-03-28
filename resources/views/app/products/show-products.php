@@ -1,6 +1,6 @@
 <!-- start sidebar -->
 <?php
-$title = 'نمایش محصولات';
+$title = 'نمایش دواها';
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
@@ -10,7 +10,7 @@ include_once('resources/views/scripts/live-search-link.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> نمایش محصولات
+    <div class="content-title"> نمایش دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php
@@ -36,7 +36,7 @@ include_once('resources/views/scripts/live-search-link.php');
                 data-edit-url="<?= url('edit-product') ?>/"
                 data-template="product_name"
                 data-id-key="id"
-                placeholder="جستجوی محصول..."
+                placeholder="جستجوی دوا..."
                 autocomplete="off"
                 autofocus />
             <ul class="search-back d-none live-search-result t35"></ul>
@@ -49,7 +49,7 @@ include_once('resources/views/scripts/live-search-link.php');
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>نام محصول</th>
+                    <th>نام دوا</th>
                     <th>دسته بندی</th>
                     <th>بسته‌بندی / واحد</th>
                     <th>ویرایش</th>

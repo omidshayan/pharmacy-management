@@ -227,7 +227,7 @@
                         $('#alert')
                             .removeClass('error')
                             .addClass('success')
-                            .text(response.message || 'محصول با موفقیت به سبد خرید اضافه شد.')
+                            .text(response.message || 'دوا با موفقیت به سبد خرید اضافه شد.')
                             .fadeIn()
                             .delay(300)
                             .fadeOut();
@@ -262,7 +262,7 @@
                     $('#alert')
                         .removeClass('success')
                         .addClass('error')
-                        .text('خطا در ارسال محصول به سرور. لطفاً دوباره تلاش کنید.')
+                        .text('خطا در ارسال دوا به سرور. لطفاً دوباره تلاش کنید.')
                         .fadeIn()
                         .delay(5000)
                         .fadeOut();
@@ -308,7 +308,7 @@
             let warehouseHtml = `
                     <div class="inputs">
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب محل قرارگیری این محصول</div>
+                            <div class="label-form mb5 fs14">انتخاب محل قرارگیری این دوا</div>
                             <select name="warehouse_id">
                                 <option selected disabled>پیشفرض (داخل فروشگاه)</option>
                                 ${warehousesOptions}
@@ -383,7 +383,7 @@
                     ${warehouseHtml}
                     <div class="inputs d-flex">
                         <div class="one">
-                            <textarea class="h-area" placeholder="آدرس محل قرار گیری محصول...">${item?.location || ''}</textarea>
+                            <textarea class="h-area" placeholder="آدرس محل قرار گیری دوا...">${item?.location || ''}</textarea>
                         </div>
                     </div>
                     ${expireHtml} 
@@ -726,7 +726,7 @@
                         $('#alert')
                             .removeClass('error')
                             .addClass('success')
-                            .text(response.message || 'محصول با موفقیت به سبد خرید اضافه شد.')
+                            .text(response.message || 'دوا با موفقیت به سبد خرید اضافه شد.')
                             .fadeIn()
                             .delay(300)
                             .fadeOut();

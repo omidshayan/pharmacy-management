@@ -174,7 +174,7 @@
                         $('#alert')
                             .removeClass('error')
                             .addClass('success')
-                            .text(response.message || 'محصول با موفقیت به سبد خرید اضافه شد.')
+                            .text(response.message || 'دوا با موفقیت به سبد خرید اضافه شد.')
                             .fadeIn()
                             .delay(300)
                             .fadeOut();
@@ -208,7 +208,7 @@
                     $('#alert')
                         .removeClass('success')
                         .addClass('error')
-                        .text('خطا در ارسال محصول به سرور. لطفاً دوباره تلاش کنید.')
+                        .text('خطا در ارسال دوا به سرور. لطفاً دوباره تلاش کنید.')
                         .fadeIn()
                         .delay(5000)
                         .fadeOut();
@@ -273,7 +273,7 @@
             <div class="inputs">
             <div class="one">
             <select name="warehouse_id" class="w100 mt5">
-            <option selected disabled>انتخاب محل قرار گیری محصول</option>
+            <option selected disabled>انتخاب محل قرار گیری دوا</option>
             ${warehousesOptions}
             </select>
             </div>
@@ -391,7 +391,7 @@
                 <div class="insert">
                     <div class="inputs">
                         <div class="one">
-                            <textarea placeholder="آدرس محل قرار گیری محصول..."></textarea>
+                            <textarea placeholder="آدرس محل قرار گیری دوا..."></textarea>
                         </div>
                     </div>
                 </div>

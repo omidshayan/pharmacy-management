@@ -157,7 +157,7 @@ class Invoice extends App
 
         $invoice_any_situation = $this->db->select('SELECT invoice_any_situation FROM settings')->fetch();
         if ($invoice_any_situation['invoice_any_situation'] == 2) {
-            $this->flashMessage('error', 'موجودی محصول کم است!');
+            $this->flashMessage('error', 'موجودی دوا کم است!');
         } else {
             $new_quantity = $inventory['quantity'] - $quantity;
             $this->db->update('inventory', $inventory['id'], ['quantity'], [$new_quantity]);

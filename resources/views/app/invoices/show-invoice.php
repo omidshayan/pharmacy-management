@@ -24,7 +24,7 @@ include_once('public/alerts/error.php');
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>نام محصول</th>
+                    <th>نام دوا</th>
                     <th>تعداد بسته</th>
                     <th>تعداد واحد</th>
                     <th>تعداد کل</th>

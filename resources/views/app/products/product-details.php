@@ -1,6 +1,6 @@
     <!-- start sidebar -->
     <?php
-    $title = 'جزئیات محصول: ' . $product['product_name'];
+    $title = 'جزئیات دوا: ' . $product['product_name'];
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/change-status.php');
     include_once('resources/views/scripts/show-img-modal.php');
@@ -15,17 +15,17 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title fs18"> جزئیات محصول: <?= $product['product_name'] ?></div>
+        <div class="content-title fs18"> جزئیات دوا: <?= $product['product_name'] ?></div>
         <div class="content-title fs18"> موجودی فعلی: <?= ($product['quantity'] != null) ? $product['quantity'] : 0 ?> عدد</div>
 
         <div class="box-container">
             <!-- general detailse -->
-            <div class="accordion-title color-orange">جزئیات کلی محصول</div>
+            <div class="accordion-title color-orange">جزئیات کلی دوا</div>
             <div class="accordion-content">
                 <div class="child-accordioin">
 
                     <div class="detailes-culomn d-flex cursor-p">
-                        <div class="title-detaile">نام محصول</div>
+                        <div class="title-detaile">نام دوا</div>
                         <div class="info-detaile"><?= $product['product_name'] ?></div>
                     </div>
                     <div class="detailes-culomn d-flex cursor-p">
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="detailes-culomn d-flex cursor-p">
-                        <div class="title-detaile">کد محصول</div>
+                        <div class="title-detaile">کد دوا</div>
                         <div class="info-detaile"><?= ($product['product_code']) ? $product['product_code'] : '- - - -' ?></div>
                     </div>
 
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="detailes-culomn d-flex cursor-p align-center">
-                        <div class="title-detaile">عکس محصول</div>
+                        <div class="title-detaile">عکس دوا</div>
                         <div class="info-detaile d-flex align-center">
                             <?= $product['product_image']
                                 ? '<img class="w50 cursor-p" src="' . asset('public/images/products/' . $product['product_image']) . '" alt="logo" onclick="openModal(\'' . asset('public/images/products/' . $product['product_image']) . '\')">'
@@ -118,7 +118,7 @@
             </div>
 
             <!-- buy detailse -->
-            <div class="accordion-title color-orange">جزئیات فروش محصول</div>
+            <div class="accordion-title color-orange">جزئیات فروش دوا</div>
             <div class="accordion-content">
                 <div class="child-accordioin">
                     <div class="detailes-culomn d-flex cursor-p">
