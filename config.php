@@ -23,7 +23,7 @@ include_once ('lang/'.$_COOKIE['lang'] .'.php');
 require_once 'helper.php';
 //config
 define('BASE_PATH', __DIR__);
-define('CURRENT_DOMAIN', currentDomain() . '/souda-con');
+define('CURRENT_DOMAIN', currentDomain() . '/pharmacy-management');
 define('DISPLAY_ERROR', true);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'souda_con_sis');

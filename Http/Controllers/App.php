@@ -34,10 +34,10 @@ class App
         public function loadNotifications()
         {
                 $branchId = $this->getBranchId();
-                if (isset($_SESSION['so_admin']['id'])) {
-                        $userId = $_SESSION['so_admin']['id'];
-                } elseif (isset($_SESSION['so_employee']['id'])) {
-                        $userId = $_SESSION['so_employee']['id'];
+                if (isset($_SESSION['phy_employee']['id'])) {
+                        $userId = $_SESSION['phy_employee']['id'];
+                } elseif (isset($_SESSION['phy_employee']['id'])) {
+                        $userId = $_SESSION['phy_employee']['id'];
                 } else {
                         $this->redirect('logout');
                         exit;
@@ -755,17 +755,17 @@ class App
         // check branch count
         public function branchSelectField($selectedId = null): string
         {
-                if (!isset($_SESSION['so_employee']['branch_id']) && !isset($_SESSION['so_admin']['id'])) {
+                if (!isset($_SESSION['phy_employee']['branch_id']) && !isset($_SESSION['phy_employee']['id'])) {
                         $this->redirect('logout');
                         exit;
                 }
 
-                if (isset($_SESSION['so_employee']['branch_id'])) {
-                        $branchId = intval($_SESSION['so_employee']['branch_id']);
+                if (isset($_SESSION['phy_employee']['branch_id'])) {
+                        $branchId = intval($_SESSION['phy_employee']['branch_id']);
                         return "<input type=\"hidden\" name=\"branch_id\" value=\"$branchId\">";
                 }
 
-                if (isset($_SESSION['so_admin'])) {
+                if (isset($_SESSION['phy_employee'])) {
                         $branches = $this->db->select('SELECT id, branch_name FROM branches WHERE is_active = 1')->fetchAll();
 
                         if (count($branches) === 1) {
@@ -795,12 +795,12 @@ class App
         // check user and get table infos
         public function getBranchAccess(): array
         {
-                if (isset($_SESSION['so_admin'])) {
+                if (isset($_SESSION['phy_employee'])) {
                         return ['is_admin' => true, 'branch_id' => null];
                 }
 
-                if (isset($_SESSION['so_employee']['branch_id'])) {
-                        return ['is_admin' => false, 'branch_id' => intval($_SESSION['so_employee']['branch_id'])];
+                if (isset($_SESSION['phy_employee']['branch_id'])) {
+                        return ['is_admin' => false, 'branch_id' => intval($_SESSION['phy_employee']['branch_id'])];
                 }
 
                 $this->redirect('logout');
@@ -843,7 +843,7 @@ class App
                         return $this->cachedBranchId;
                 }
 
-                if (!isset($_SESSION['so_employee']) && !isset($_SESSION['so_admin']['admin'])) {
+                if (!isset($_SESSION['phy_employee']) && !isset($_SESSION['phy_employee']['admin'])) {
                         $this->redirect('logout');
                         exit;
                 }
@@ -855,8 +855,8 @@ class App
                         return $this->cachedBranchId = $branches[0]['id'];
                 }
 
-                if (!empty($_SESSION['so_employee']['branch_id'])) {
-                        $bId = $_SESSION['so_employee']['branch_id'];
+                if (!empty($_SESSION['phy_employee']['branch_id'])) {
+                        $bId = $_SESSION['phy_employee']['branch_id'];
 
                         foreach ($branches as $b) {
                                 if ($b['id'] == $bId) {
@@ -867,7 +867,7 @@ class App
                         return $this->cachedBranchId = $bId;
                 }
 
-                if (!empty($_SESSION['so_admin']['admin'])) {
+                if (!empty($_SESSION['phy_employee']['admin'])) {
                         return $this->cachedBranchId = 'ALL';
                 }
 
@@ -891,8 +891,8 @@ class App
         // user, branch exist?
         public function validateUserBranch()
         {
-                if (isset($_SESSION['so_employee']['branch_id'])) {
-                        $branchId = $_SESSION['so_employee']['branch_id'];
+                if (isset($_SESSION['phy_employee']['branch_id'])) {
+                        $branchId = $_SESSION['phy_employee']['branch_id'];
 
                         $branchExists = $this->db->select('SELECT id FROM branches WHERE id = ?', [$branchId])->fetch();
 
@@ -1058,20 +1058,20 @@ class App
         // get user infos
         public function currentUser()
         {
-                if (isset($_SESSION['so_admin']) && !empty($_SESSION['so_admin'])) {
+                if (isset($_SESSION['phy_employee']) && !empty($_SESSION['phy_employee'])) {
                         return [
-                                'id'   => $_SESSION['so_admin']['id'],
-                                'name' => $_SESSION['so_admin']['name'],
+                                'id'   => $_SESSION['phy_employee']['id'],
+                                'name' => $_SESSION['phy_employee']['name'],
                                 'role' => 'admin'
                         ];
                 }
 
-                if (isset($_SESSION['so_employee']) && !empty($_SESSION['so_employee'])) {
+                if (isset($_SESSION['phy_employee']) && !empty($_SESSION['phy_employee'])) {
                         return [
-                                'id'        => $_SESSION['so_employee']['id'],
-                                'name'      => $_SESSION['so_employee']['name'],
+                                'id'        => $_SESSION['phy_employee']['id'],
+                                'name'      => $_SESSION['phy_employee']['name'],
                                 'role'      => 'employee',
-                                'branch_id' => $_SESSION['so_employee']['branch_id']
+                                'branch_id' => $_SESSION['phy_employee']['branch_id']
                         ];
                 }
 

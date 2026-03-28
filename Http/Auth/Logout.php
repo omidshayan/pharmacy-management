@@ -12,23 +12,23 @@ class Logout extends Auth
     {
         $db = DataBase::getInstance();
 
-        if (isset($_SESSION['so_employee']['id'])) {
-            $db->update('employees', $_SESSION['so_employee']['id'], [
+        if (isset($_SESSION['phy_employee']['id'])) {
+            $db->update('employees', $_SESSION['phy_employee']['id'], [
                 'expire_remember_token',
                 'remember_token'
             ], [0, null]);
         }
 
-        if (isset($_SESSION['so_admin']['id'])) {
-            $db->update('employees', $_SESSION['so_admin']['id'], [
+        if (isset($_SESSION['phy_employee']['id'])) {
+            $db->update('employees', $_SESSION['phy_employee']['id'], [
                 'expire_remember_token',
                 'remember_token'
             ], [0, null]);
         }
 
         $sessionsToUnset = [
-            'so_employee',
-            'so_admin',
+            'phy_employee',
+            'phy_employee',
             'sk_em_name',
             'user_permissions',
             'csrf_token',
@@ -42,8 +42,8 @@ class Logout extends Auth
 
         session_destroy();
 
-        if (isset($_COOKIE['so_user'])) {
-            setcookie("so_user", '', time() - 3600, '/', '', true, true);
+        if (isset($_COOKIE['phy_user'])) {
+            setcookie("phy_user", '', time() - 3600, '/', '', true, true);
         }
 
         $this->redirect('login');

@@ -13,7 +13,7 @@ class Profile extends App
     {
         $this->middleware(true, true, 'general', true);
         $branchId = $this->getBranchId();
-        $profile = $this->db->select('SELECT * FROM employees WHERE id = ? AND branch_id = ?', [$_SESSION['so_employee']['id'], $branchId])->fetch();
+        $profile = $this->db->select('SELECT * FROM employees WHERE id = ? AND branch_id = ?', [$_SESSION['phy_employee']['id'], $branchId])->fetch();
         require_once(BASE_PATH . '/resources/views/app/profile/profile.php');
     }
 

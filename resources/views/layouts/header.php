@@ -31,10 +31,10 @@
           <div class="text-avatar">
             <div>
               <?php
-              if (isset($_SESSION['so_admin'])) {
-                echo 'مدیر کل ' . $_SESSION['so_admin']['name'];
+              if (isset($_SESSION['phy_employee'])) {
+                echo 'مدیر کل ' . $_SESSION['phy_employee']['name'];
               } else {
-                echo $_SESSION['so_employee']['name'];
+                echo $_SESSION['phy_employee']['name'];
               }
               ?>
             </div>
