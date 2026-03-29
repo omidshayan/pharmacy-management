@@ -90,7 +90,7 @@
                 <?php endif; ?>
                 <?php if ($this->hasAccess('general')): ?>
                   <a href="<?= url('products-units') ?>">
-                    <li class="sidebar-dropdown-menu-item">مدیریت واحدهای شمارش</li>
+                    <li class="sidebar-dropdown-menu-item">مدیریت نوع‌های دوا</li>
                   </a>
                 <?php endif; ?>
               </ul>

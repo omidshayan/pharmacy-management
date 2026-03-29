@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 24, 2026 at 11:20 AM
+-- Generation Time: Mar 29, 2026 at 05:54 AM
 -- Server version: 9.1.0
 -- PHP Version: 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `souda_con_sis`
+-- Database: `pharmacy_sis`
 --
 
 -- --------------------------------------------------------
@@ -459,8 +459,8 @@ CREATE TABLE IF NOT EXISTS `employees` (
 --
 
 INSERT INTO `employees` (`id`, `branch_id`, `employee_name`, `father_name`, `phone`, `password`, `email`, `address`, `position`, `role`, `verify_token`, `forgot_token`, `forgot_token_expire`, `remember_token`, `expire_remember_token`, `image`, `description`, `salary_price`, `who_it`, `state`, `super_admin`, `notif`, `created_at`, `updated_at`) VALUES
-(1, 100, 'کاظم حسینی', NULL, 11, '$2y$10$EfLQ0PKX4GeGGXnbfeNCdeao/DXcMSDb2Cm99gbyrLmuovnifQfki', 'ali.afg@gmail.com', NULL, '', 3, NULL, '1daa771ddafb5d1cdc6968fa34a02a4de8c28ed632288dfd33d403619c458ea9', '2025-03-01 13:47:53', NULL, NULL, '2024-09-01-23-53-55_66d4bf4bc0f96.jpg', NULL, 2000, '1', 1, 3, 2, '2024-09-01 23:53:55', '2026-02-03 13:09:03'),
-(2, 1, 'کاظم حسینی', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, 'fef3d5d9760172dc47d03fc9eb36a2a04046f0cd323c5861e4ff9a33dc3bc2ce', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-03-15 16:59:30');
+(1, 100, 'suport', NULL, 11, '$2y$10$EfLQ0PKX4GeGGXnbfeNCdeao/DXcMSDb2Cm99gbyrLmuovnifQfki', 'ali.afg@gmail.com', NULL, '', 3, NULL, '1daa771ddafb5d1cdc6968fa34a02a4de8c28ed632288dfd33d403619c458ea9', '2025-03-01 13:47:53', NULL, NULL, '2024-09-01-23-53-55_66d4bf4bc0f96.jpg', NULL, 2000, '1', 1, 3, 2, '2024-09-01 23:53:55', '2026-02-03 13:09:03'),
+(2, 1, 'Admin', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, '164a9a535499dc21fcd764456f54c818056b95c9748f4d5f096cee7b5089a958', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-03-28 21:58:31');
 
 -- --------------------------------------------------------
 
@@ -941,19 +941,14 @@ CREATE TABLE IF NOT EXISTS `products_units` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `products_units`
 --
 
 INSERT INTO `products_units` (`id`, `branch_id`, `global`, `product_unit`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 'لیتر', 1, 'محمد', '2026-03-14 23:08:42', NULL),
-(2, 1, 0, 'سطل', 1, 'محمد', '2026-03-14 23:08:44', NULL),
-(3, 1, 0, 'عدد', 1, 'محمد', '2026-03-14 23:08:45', NULL),
-(4, 1, 0, 'گالن', 1, 'محمد', '2026-03-14 23:08:48', NULL),
-(5, 1, 0, 'کارتن', 1, 'محمد', '2026-03-14 23:08:49', NULL),
-(6, 1, 0, 'کیلو', 1, 'محمد', '2026-03-14 23:08:56', NULL);
+(1, 1, 0, 'شربت', 1, 'Admin', '2026-03-29 09:19:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -998,16 +993,7 @@ CREATE TABLE IF NOT EXISTS `product_cat` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `product_cat`
---
-
-INSERT INTO `product_cat` (`id`, `branch_id`, `global`, `product_cat_name`, `who_it`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 'تینر', 'محمد', 1, '2026-03-14 23:38:17', NULL),
-(2, 1, 0, 'رنگ فوری هیل', 'محمد', 1, '2026-03-14 23:38:21', NULL),
-(3, 1, 0, 'رنگ فوری یشم افغان فیضی', 'محمد', 1, '2026-03-14 23:38:32', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
