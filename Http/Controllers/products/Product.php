@@ -382,7 +382,7 @@ class Product extends App
 
     ////////////////////////// categories products /////////////////////////////////
 
-    //  product page
+    //  show page
     public function productCategories()
     {
         $this->middleware(true, true, 'general', true);

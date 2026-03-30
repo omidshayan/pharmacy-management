@@ -5,7 +5,6 @@ include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
 ?>
 
-<!-- Start content -->
 <div class="content">
     <div class="content-title"> مدیریت کمپانی‌های دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
@@ -16,7 +15,6 @@ include_once('public/alerts/toastr.php');
     include_once('resources/views/helps/help.php');
     ?>
 
-    <!-- start page content -->
     <div class="box-container">
         <div class="insert">
             <form id="myForm" action="product-cat-store" method="POST">
@@ -34,7 +32,6 @@ include_once('public/alerts/toastr.php');
         </div>
     </div>
 
-    <!-- show packages -->
     <div class="box-container">
         <div class="mb10 fs14"> کمپانی‌های ثبت شده</div>
         <table class="fl-table">
@@ -102,8 +99,6 @@ include_once('public/alerts/toastr.php');
             ?>
         </div>
     </div>
-    <!-- end page content -->
 </div>
-<!-- End content -->
 
 <?php include_once('resources/views/layouts/footer.php') ?>
