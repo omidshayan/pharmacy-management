@@ -1,6 +1,6 @@
     <!-- start sidebar -->
     <?php
-    $title = 'جزئیات دسته بندی: ' . $item['product_unit'];
+    $title = 'جزئیات نوع: ' . $item['type_name'];
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/change-status.php');
     ?>
@@ -14,14 +14,14 @@
 
     <!-- Start content -->
     <div class="content">
-        <div class="content-title"> جزئیات دسته بندی: <?= $item['product_unit'] ?></div>
+        <div class="content-title"> جزئیات نوع: <?= $item['type_name'] ?></div>
         <br />
         <!-- start page content -->
         <div class="box-container">
             <div class="details">
                 <div class="detail-item d-flex">
                     <div class="w100 m10 center">نام</div>
-                    <div class="w100 m10 center"><?= $item['product_unit'] ?></div>
+                    <div class="w100 m10 center"><?= $item['type_name'] ?></div>
                 </div>
             </div>
             <div class="details">
@@ -49,7 +49,7 @@
                     <div class="w100 m10 center status status-column" id="status"><?= ($item['status'] == 1) ? '<span class="color-green">فعال</span>' : '<span class="color-red">غیرفعال</span>' ?></div>
                 </div>
             </div>
-            <a href="<?= url('products-units') ?>">
+            <a href="<?= url('drug-types') ?>">
                 <div class="btn center p5">برگشت</div>
             </a>
         </div>

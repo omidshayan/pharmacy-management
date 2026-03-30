@@ -36,14 +36,14 @@ class DrugType extends App
     }
 
     // product Cat Details detiles page
-    public function productUnitDetails($id)
+    public function drugTypeDetails($id)
     {
         $this->middleware(true, true, 'general');
 
-        $item = $this->db->select('SELECT * FROM products_units WHERE `id` = ?', [$id])->fetch();
+        $item = $this->db->select('SELECT * FROM drug_types WHERE `id` = ?', [$id])->fetch();
 
         if ($item != null) {
-            require_once(BASE_PATH . '/resources/views/app/products/products-units/products-unit-details.php');
+            require_once(BASE_PATH . '/resources/views/app/products/drug-types/drug-type-details.php');
             exit();
         } else {
             require_once(BASE_PATH . '/404.php');
