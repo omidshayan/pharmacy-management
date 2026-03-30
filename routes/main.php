@@ -96,6 +96,8 @@ require_once 'cron-job/cron_job.php';
 // companies
 require_once 'basic-sections/companies.php';
 
+// drugtype
+require_once 'drug-types/drug-types.php';
 
 
 function uri($reservedUrl, $class, $method, $requestMethod = 'GET')
