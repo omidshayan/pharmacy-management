@@ -17,6 +17,8 @@ class Product extends App
 
         $products_units = $this->db->select("SELECT * FROM products_units WHERE `status` = ? AND branch_id = ?", [1, $branchId])->fetchAll();
 
+        $drug_types = $this->db->select("SELECT * FROM drug_types WHERE `status` = ? AND branch_id = ?", [1, $branchId])->fetchAll();
+
         $checkboxAtts = $this->db->select(
             "SELECT id, att_name FROM attributes 
             WHERE status = ? AND branch_id = ? AND att_type = ?",

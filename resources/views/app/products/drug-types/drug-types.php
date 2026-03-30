@@ -16,7 +16,7 @@ include_once('public/alerts/toastr.php');
     include_once('resources/views/helps/help.php');
     ?>
 
-    <div class="mini-container">
+    <div class="box-container">
         <div class="insert">
             <form id="myForm" action="drug-type-store" method="POST">
                 <div class="inputs d-flex">
@@ -32,7 +32,7 @@ include_once('public/alerts/toastr.php');
         </div>
     </div>
 
-    <div class="mini-container">
+    <div class="box-container">
         <div class="mb10 fs14"> نوع‌های ثبت شده</div>
         <table class="fl-table">
             <thead>

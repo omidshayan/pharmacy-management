@@ -101,7 +101,6 @@
         });
     </script>
 
-    <!-- Start content -->
     <div class="content">
         <div class="content-title">ثبت دوا جدید
             <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
@@ -111,7 +110,7 @@
         $help_content = _help_desc;
         include_once('resources/views/helps/help.php');
         ?>
-        <!-- start page content -->
+
         <div class="box-container pr">
             <div class="insert">
                 <form action="<?= url('product-store') ?>" method="POST" enctype="multipart/form-data">
@@ -146,12 +145,23 @@
                             </select>
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">تعداد / مقدار در هر واحد <?= _star ?> </div>
-                            <input type="text" name="quantity_in_pack" placeholder="تعداد داخل هر بسته را وارد نمایید" maxlength="40" value="1" />
+                            <div class="label-form mb5 fs14">انتخاب نوع دوا</div>
+                            <select name="package_type" class="checkSelect">
+                                <option selected disabled>انتخاب نوع</option>
+                                <?php
+                                foreach ($drug_types as $drug_type) { ?>
+                                    <option value="<?= $drug_type['type_name'] ?>"><?= $drug_type['type_name'] ?></option>
+                                <?php }
+                                ?>
+                            </select>
                         </div>
                     </div>
 
                     <div class="inputs d-flex">
+                        <div class="one">
+                            <div class="label-form mb5 fs14">تعداد / مقدار در هر واحد <?= _star ?> </div>
+                            <input type="text" name="quantity_in_pack" placeholder="تعداد داخل هر بسته را وارد نمایید" maxlength="40" value="1" />
+                        </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">انتخاب واحد کوچکتر</div>
                             <select name="unit_type">
