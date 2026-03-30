@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 29, 2026 at 05:54 AM
+-- Generation Time: Mar 30, 2026 at 09:23 PM
 -- Server version: 9.1.0
 -- PHP Version: 7.4.33
 
@@ -104,13 +104,6 @@ CREATE TABLE IF NOT EXISTS `attributes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
---
--- Dumping data for table `attributes`
---
-
-INSERT INTO `attributes` (`id`, `branch_id`, `att_name`, `att_type`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(14, 1, 'دوا جایزه دار', 'checkbox', 1, 'محمد', '2026-02-20 15:56:26', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -128,14 +121,7 @@ CREATE TABLE IF NOT EXISTS `attribute_values` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `attribute_values`
---
-
-INSERT INTO `attribute_values` (`id`, `product_id`, `attribute_id`, `value`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(65, 71, 14, '1', 1, '', '2026-03-24 15:10:56', NULL);
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -322,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -371,6 +357,24 @@ CREATE TABLE IF NOT EXISTS `daily_reports` (
   KEY `branch_id` (`branch_id`),
   KEY `report_date` (`report_date`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `drug_types`
+--
+
+DROP TABLE IF EXISTS `drug_types`;
+CREATE TABLE IF NOT EXISTS `drug_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `branch_id` int NOT NULL,
+  `type_name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `who_it` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -452,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `employee_name` (`employee_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `employees`
@@ -460,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
 
 INSERT INTO `employees` (`id`, `branch_id`, `employee_name`, `father_name`, `phone`, `password`, `email`, `address`, `position`, `role`, `verify_token`, `forgot_token`, `forgot_token_expire`, `remember_token`, `expire_remember_token`, `image`, `description`, `salary_price`, `who_it`, `state`, `super_admin`, `notif`, `created_at`, `updated_at`) VALUES
 (1, 100, 'suport', NULL, 11, '$2y$10$EfLQ0PKX4GeGGXnbfeNCdeao/DXcMSDb2Cm99gbyrLmuovnifQfki', 'ali.afg@gmail.com', NULL, '', 3, NULL, '1daa771ddafb5d1cdc6968fa34a02a4de8c28ed632288dfd33d403619c458ea9', '2025-03-01 13:47:53', NULL, NULL, '2024-09-01-23-53-55_66d4bf4bc0f96.jpg', NULL, 2000, '1', 1, 3, 2, '2024-09-01 23:53:55', '2026-02-03 13:09:03'),
-(2, 1, 'Admin', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, '164a9a535499dc21fcd764456f54c818056b95c9748f4d5f096cee7b5089a958', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-03-28 21:58:31');
+(2, 1, 'Admin', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, '1c723bf94501846ae6fb69b2820688222d999f3268d9e14010d4740b6ffdf835', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-03-31 01:50:25');
 
 -- --------------------------------------------------------
 
@@ -733,7 +737,7 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   KEY `date` (`date`),
   KEY `invoice_number` (`invoice_number`),
   KEY `idx_branch_user` (`branch_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -840,7 +844,15 @@ CREATE TABLE IF NOT EXISTS `not_access_logs` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `not_access_logs`
+--
+
+INSERT INTO `not_access_logs` (`id`, `user_id`, `section_name`, `page_address`, `ip_address`, `user_agent`, `status`, `created_at`, `updated_at`) VALUES
+(22, 124, 'general', '/pharmacy-management/', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 1, '2026-03-31 01:50:20', NULL),
+(23, 124, 'general', '/pharmacy-management/', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 1, '2026-03-31 01:50:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -856,7 +868,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `permissions`
@@ -881,14 +893,14 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `positions`
 --
 
 INSERT INTO `positions` (`id`, `branch_id`, `name`, `who_it`, `state`, `created_at`, `updated_at`) VALUES
-(1, 1, 'حسابدار', 'کاظم حسینی', 1, '2025-11-07 22:01:20', '2026-01-04 16:12:44');
+(1, 1, 'حسابدار', 'Admin', 1, '2025-11-07 22:01:20', '2026-01-04 16:12:44');
 
 -- --------------------------------------------------------
 
@@ -906,13 +918,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   `package_price_sell` decimal(15,2) DEFAULT NULL,
   `unit_price_buy` decimal(15,2) DEFAULT NULL,
   `unit_price_sell` decimal(15,2) DEFAULT NULL,
-  `product_cat` varchar(124) NOT NULL,
+  `product_cat` varchar(124) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `package_type` varchar(32) NOT NULL,
   `quantity_in_pack` int NOT NULL,
   `unit_type` varchar(32) DEFAULT NULL,
   `reorder_point` int DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `product_image` varchar(256) DEFAULT NULL,
+  `company` int DEFAULT NULL,
+  `drug_type` varchar(64) DEFAULT NULL,
   `who_it` varchar(60) NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1' COMMENT '1 -> active, 2 => deactive',
   `created_at` datetime NOT NULL,
@@ -922,7 +936,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `product_code` (`product_code`),
   KEY `idx_branch_product` (`branch_id`,`product_name`),
   KEY `award` (`reorder_point`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -941,14 +955,7 @@ CREATE TABLE IF NOT EXISTS `products_units` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `products_units`
---
-
-INSERT INTO `products_units` (`id`, `branch_id`, `global`, `product_unit`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 'شربت', 1, 'Admin', '2026-03-29 09:19:32', NULL);
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -993,7 +1000,7 @@ CREATE TABLE IF NOT EXISTS `product_cat` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
