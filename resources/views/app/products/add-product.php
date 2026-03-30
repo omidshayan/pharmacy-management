@@ -146,7 +146,7 @@
                         </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">انتخاب نوع دوا</div>
-                            <select name="package_type" class="checkSelect">
+                            <select name="drug_type" class="checkSelect">
                                 <option selected disabled>انتخاب نوع</option>
                                 <?php
                                 foreach ($drug_types as $drug_type) { ?>
