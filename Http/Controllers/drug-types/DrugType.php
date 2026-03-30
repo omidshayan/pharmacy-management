@@ -13,7 +13,7 @@ class DrugType extends App
 
         $drug_types = $this->db->select('SELECT * FROM drug_types WHERE `status` = ? ', [1])->fetchAll();
 
-        require_once(BASE_PATH . '/resources/views/app/drug-types/drug-types.php');
+        require_once(BASE_PATH . '/resources/views/app/products/drug-types/drug-types.php');
     }
 
     // productsUnitStore Store
