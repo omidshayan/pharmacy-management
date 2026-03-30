@@ -1089,15 +1089,12 @@ class App
         // get balance
         public function getCalculatedBalance($userId, $branchId, $transactionTime)
         {
-                // محاسبه مجموع تمام تراکنش‌های قبل از این زمان خاص
                 $oldBalanceQuery = $this->db->select(
                         "SELECT SUM(
                         CASE 
-                                /* انواع 2 (خرید)، 3 (برگشت از فروش)، 6 (پرداخت وجه) -> تراز را مثبت می‌کنند */
                                 WHEN transaction_type = 6 THEN paid_amount
                                 WHEN transaction_type IN (2, 3) THEN (total_amount - discount - paid_amount)
                                 
-                                /* انواع 1 (فروش)، 4 (برگشت از خرید)، 5 (رسید وجه) -> تراز را منفی می‌کنند */
                                 WHEN transaction_type = 5 THEN -paid_amount
                                 WHEN transaction_type IN (1, 4) THEN -(total_amount - discount - paid_amount)
                                 

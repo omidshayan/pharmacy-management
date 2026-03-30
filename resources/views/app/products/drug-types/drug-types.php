@@ -6,7 +6,6 @@ include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
 ?>
 
-<!-- Start content -->
 <div class="content">
     <div class="content-title"> مدیریت نوعیت دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
@@ -16,8 +15,8 @@ include_once('public/alerts/toastr.php');
     $help_content = _help_desc;
     include_once('resources/views/helps/help.php');
     ?>
-    <!-- start page content -->
-    <div class="box-container">
+
+    <div class="mini-container">
         <div class="insert">
             <form id="myForm" action="drug-type-store" method="POST">
                 <div class="inputs d-flex">
@@ -33,8 +32,7 @@ include_once('public/alerts/toastr.php');
         </div>
     </div>
 
-    <!-- show packages -->
-    <div class="box-container">
+    <div class="mini-container">
         <div class="mb10 fs14"> نوع‌های ثبت شده</div>
         <table class="fl-table">
             <thead>
@@ -54,7 +52,7 @@ include_once('public/alerts/toastr.php');
                 foreach ($data as $item) {
                 ?>
                     <tr>
-                        <td class="color-orange"><?= $number ?></td>
+                        <td class="color-orange <?= statusColor($item['status']) ?>"><?= $number ?></td>
                         <td><?= $item['type_name'] ?></td>
                         <td>
                             <a href="<?= url('edit-drug-type/' . $item['id']) ?>" class="color-orange">
@@ -96,8 +94,6 @@ include_once('public/alerts/toastr.php');
             ?>
         </div>
     </div>
-    <!-- end page content -->
 </div>
-<!-- End content -->
 
 <?php include_once('resources/views/layouts/footer.php') ?>

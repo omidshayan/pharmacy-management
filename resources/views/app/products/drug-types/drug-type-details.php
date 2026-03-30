@@ -1,22 +1,16 @@
-    <!-- start sidebar -->
     <?php
     $title = 'جزئیات نوع: ' . $item['type_name'];
     include_once('resources/views/layouts/header.php');
     include_once('resources/views/scripts/change-status.php');
     ?>
-    <!-- end sidebar -->
 
     <div id="alert" class="alert" style="display: none;"><?=_error_programmer?></div>
-    <!-- loading and overlay -->
     <div class="overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
 
-    <!-- Start content -->
     <div class="content">
         <div class="content-title"> جزئیات نوع: <?= $item['type_name'] ?></div>
-        <br />
-        <!-- start page content -->
         <div class="box-container">
             <div class="details">
                 <div class="detail-item d-flex">
@@ -53,8 +47,6 @@
                 <div class="btn center p5">برگشت</div>
             </a>
         </div>
-        <!-- end page content -->
     </div>
-    <!-- End content -->
 
     <?php include_once('resources/views/layouts/footer.php') ?>
