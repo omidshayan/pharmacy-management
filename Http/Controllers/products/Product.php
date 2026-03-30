@@ -387,7 +387,9 @@ class Product extends App
     {
         $this->middleware(true, true, 'general', true);
 
-        $products_categories = $this->db->select('SELECT * FROM product_cat WHERE `status` = ? ', [1])->fetchAll();
+        $branchId = $this->getBranchId();
+
+        $products_categories = $this->db->select('SELECT * FROM product_cat WHERE branch_id = ?', [$branchId])->fetchAll();
 
         require_once(BASE_PATH . '/resources/views/app/products/products-categories/products-categories.php');
     }

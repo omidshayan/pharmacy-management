@@ -1,5 +1,5 @@
 <?php
-$title = 'دسته بندی دواها';
+$title = 'دسته کمپانی‌ها';
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
@@ -7,7 +7,7 @@ include_once('public/alerts/toastr.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> مدیریت دسته بندی های دواها
+    <div class="content-title"> مدیریت کمپانی‌های دواها
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php
@@ -36,12 +36,12 @@ include_once('public/alerts/toastr.php');
 
     <!-- show packages -->
     <div class="box-container">
-        <div class="mb10 fs14"> دسته بندی های ثبت شده</div>
+        <div class="mb10 fs14"> کمپانی‌های ثبت شده</div>
         <table class="fl-table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>نام دسته بندی</th>
+                    <th>نام کمپانی</th>
                     <th>وضعیت</th>
                     <th>ویرایش</th>
                     <th>جزئیات</th>

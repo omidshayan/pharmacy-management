@@ -1,6 +1,6 @@
 <!-- start sidebar -->
 <?php
-$title = 'ویرایش دسته: ' . $cat['product_cat_name'];
+$title = 'ویرایش کمپانی: ' . $cat['product_cat_name'];
 include_once('resources/views/layouts/header.php');
 include_once('public/alerts/check-inputs.php');
 ?>
@@ -8,7 +8,7 @@ include_once('public/alerts/check-inputs.php');
 
 <!-- Start content -->
 <div class="content">
-    <div class="content-title"> ویرایش دسته <?= $cat['product_cat_name'] ?>
+    <div class="content-title"> ویرایش کمپانی <?= $cat['product_cat_name'] ?>
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
     </div>
     <?php

@@ -85,7 +85,7 @@
 
                 <?php if ($this->hasAccess('general')): ?>
                   <a href="<?= url('product-categories') ?>">
-                    <li class="sidebar-dropdown-menu-item">مدیریت دسته بندی‌ها</li>
+                    <li class="sidebar-dropdown-menu-item">مدیریت کمپانی‌ها</li>
                   </a>
                 <?php endif; ?>
                 <?php if ($this->hasAccess('general')): ?>
@@ -559,11 +559,11 @@
                     <li class="sidebar-dropdown-menu-item">ویژه‌گی‌‌های دوا</li>
                   </a>
                 <?php endif; ?>
-                <?php if ($this->hasAccess('general')): ?>
+                <!-- <?php if ($this->hasAccess('general')): ?>
                   <a href="<?= url('companies') ?>">
                     <li class="sidebar-dropdown-menu-item">مدیریت کمپانی‌ها</li>
                   </a>
-                <?php endif; ?>
+                <?php endif; ?> -->
               </ul>
             </li>
           <?php endif; ?>
