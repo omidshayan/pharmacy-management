@@ -50,7 +50,7 @@ include_once('resources/views/scripts/live-search-link.php');
                 <tr>
                     <th>#</th>
                     <th>نام دوا</th>
-                    <th>دسته بندی</th>
+                    <th>کمپانی</th>
                     <th>بسته‌بندی / واحد</th>
                     <th>ویرایش</th>
                     <th>جزئیات</th>

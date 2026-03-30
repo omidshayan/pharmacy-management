@@ -123,7 +123,7 @@
                             <input type="text" class="checkInput" value="<?= $product['product_name'] ?>" name="product_name" placeholder="نام دوا را وارد نمایید" maxlength="124" />
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب دسته بندی <?= _star ?></div>
+                            <div class="label-form mb5 fs14">انتخاب کمپانی <?= _star ?></div>
                             <?php
                             $selectedCatName = $product['product_cat'];
                             ?>

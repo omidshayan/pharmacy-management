@@ -135,7 +135,7 @@
                     </div>
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع دوا <?= _star ?></div>
+                            <div class="label-form mb5 fs14">نوع / بسته بندی دوا <?= _star ?></div>
                             <select name="package_type" class="checkSelect">
                                 <option selected disabled>انتخاب نوع</option>
                                 <?php
@@ -218,17 +218,6 @@
                                 </div>
                             </div>
                             <div class="inputs d-flex">
-                                <div class="one">
-                                    <div class="label-form mb5 fs14">انتخاب کمپانی</div>
-                                    <select name="unit_type">
-                                        <option selected disabled>کمپانی را انتخاب نمایید</option>
-                                        <?php
-                                        foreach ($products_category as $product_category) { ?>
-                                            <option value="<?= $product_category['product_category_name'] ?>"><?= $product_category['product_category_name'] ?></option>
-                                        <?php }
-                                        ?>
-                                    </select>
-                                </div>
                                 <div class="one">
                                     <div class="label-form mb5 fs14">توضیحات</div>
                                     <textarea name="description" placeholder="توضیحات را وارد نمایید"></textarea>
