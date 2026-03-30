@@ -122,12 +122,12 @@
                             <input type="text" class="checkInput" value="<?= old('product_name') ?>" name="product_name" placeholder="نام دوا را وارد نمایید" maxlength="124" autofocus />
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب دسته بندی <?= _star ?></div>
-                            <select name="product_cat" class="checkSelect">
-                                <option selected disabled>دسته بندی عمومی</option>
+                            <div class="label-form mb5 fs14">انتخاب کمپانی</div>
+                            <select name="company">
+                                <option selected>کمپانی را انتخاب نمایید</option>
                                 <?php
-                                foreach ($product_cats as $product_cat) { ?>
-                                    <option value="<?= $product_cat['product_cat_name'] ?>"><?= $product_cat['product_cat_name'] ?></option>
+                                foreach ($products_category as $product_category) { ?>
+                                    <option value="<?= $product_category['id'] ?>"><?= $product_category['product_category_name'] ?></option>
                                 <?php }
                                 ?>
                             </select>
