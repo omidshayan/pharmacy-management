@@ -538,49 +538,6 @@ class App
                 exit;
         }
 
-        // get shmasi year
-        // public function getValidYear($inputYear = null)
-        // {
-        //         $calendarType = $this->db->select('SELECT calendar_type FROM calendar_settings LIMIT 1')->fetchColumn();
-
-        //         if ($calendarType === 'jalali') {
-        //                 $currentYear = jdate('Y');
-        //         } else {
-        //                 $currentYear = date('Y');
-        //         }
-
-        //         $currentYear = (int) str_replace(
-        //                 ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'],
-        //                 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        //                 $currentYear
-        //         );
-
-        //         $years = $this->db->select('SELECT year FROM years WHERE calendar_type = ? AND `status` = ? ORDER BY year DESC', [$calendarType, 1])->fetchAll();
-
-        //         $yearsList = array_column($years, 'year');
-
-        //         if ($inputYear) {
-        //                 $inputYear = (int) str_replace(
-        //                         ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'],
-        //                         ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        //                         $inputYear
-        //                 );
-
-        //                 if (!in_array($inputYear, $yearsList)) {
-        //                         $this->flashMessage('error', "سال انتخاب‌شده معتبر نیست!");
-        //                         exit();
-        //                 }
-
-        //                 return $inputYear;
-        //         } else {
-        //                 if (!in_array($currentYear, $yearsList)) {
-        //                         require_once(BASE_PATH . '/year-error.php');
-        //                         exit();
-        //                 }
-        //                 return $currentYear;
-        //         }
-        // }
-
         // remove , from number
         public function cleanNumbers(array $data, array $fields)
         {

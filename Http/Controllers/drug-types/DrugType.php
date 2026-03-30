@@ -11,7 +11,7 @@ class DrugType extends App
     {
         $this->middleware(true, true, 'general', true);
 
-        $drug_types = $this->db->select('SELECT * FROM drug_types WHERE `status` = ? ', [1])->fetchAll();
+        $drug_types = $this->db->select('SELECT * FROM drug_types')->fetchAll();
 
         require_once(BASE_PATH . '/resources/views/app/products/drug-types/drug-types.php');
     }
@@ -92,12 +92,12 @@ class DrugType extends App
     }
 
     // change status product Cat
-    public function changeStatusProductUnit($id)
+    public function changeStatusDrugType($id)
     {
         $this->middleware(true, true, 'general');
 
         $branchId = $this->getBranchId();
-        $item = $this->db->select('SELECT id, `status` FROM products_units WHERE id = ? AND branch_id = ?', [$id, $branchId])->fetch();
+        $item = $this->db->select('SELECT id, `status` FROM drug_types WHERE id = ? AND branch_id = ?', [$id, $branchId])->fetch();
 
         if (!$item) {
             require BASE_PATH . '/404.php';
@@ -105,7 +105,7 @@ class DrugType extends App
         }
 
         $newState = $item['status'] == 1 ? 2 : 1;
-        $this->db->update('products_units', $item['id'], ['status'], [$newState]);
+        $this->db->update('drug_types', $item['id'], ['status'], [$newState]);
         $this->send_json_response(true, _success, $newState);
     }
 }
