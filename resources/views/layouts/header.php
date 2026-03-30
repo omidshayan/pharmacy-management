@@ -90,7 +90,12 @@
                 <?php endif; ?>
                 <?php if ($this->hasAccess('general')): ?>
                   <a href="<?= url('products-units') ?>">
-                    <li class="sidebar-dropdown-menu-item">مدیریت نوع‌های دوا</li>
+                    <li class="sidebar-dropdown-menu-item">مدیریت بسته بندی</li>
+                  </a>
+                <?php endif; ?>
+                <?php if ($this->hasAccess('general')): ?>
+                  <a href="<?= url('grug-type') ?>">
+                    <li class="sidebar-dropdown-menu-item">نوعیت دواها</li>
                   </a>
                 <?php endif; ?>
               </ul>
