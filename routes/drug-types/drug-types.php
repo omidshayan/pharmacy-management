@@ -1,18 +1,10 @@
 <?php
 require_once 'Http/Controllers/drug-types/DrugType.php';
 
-// Product category routes
-uri('products-units', 'App\ProductUnit', 'productsUnits');
-uri('product-unit-store', 'App\ProductUnit', 'productsUnitStore', 'POST');
-uri('product-unit-details/{id}', 'App\ProductUnit', 'productUnitDetails');
-uri('change-status-product-unit/{id}', 'App\ProductUnit', 'changeStatusProductUnit');
-uri('edit-product-unit/{id}', 'App\ProductUnit', 'editProductUnit');
-uri('edit-product-unit-store/{id}', 'App\ProductUnit', 'editProductUnitStore', 'POST');
-
-
-
-
-
-
-
-
+// Drug Types routes
+uri('drug-types', 'App\DrugType', 'drugTypes');
+uri('drug-type-store', 'App\DrugType', 'drugTypesStore', 'POST');
+uri('drug-type-details/{id}', 'App\DrugType', 'drugTypesDetails');
+uri('change-status-drug-type/{id}', 'App\DrugType', 'changeStatusDrugTypes');
+uri('edit-drug-type/{id}', 'App\DrugType', 'editDrugTypes');
+uri('edit-drug-type-store/{id}', 'App\DrugType', 'editDrugTypesStore', 'POST');

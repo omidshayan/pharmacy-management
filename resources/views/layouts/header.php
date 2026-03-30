@@ -94,7 +94,7 @@
                   </a>
                 <?php endif; ?>
                 <?php if ($this->hasAccess('general')): ?>
-                  <a href="<?= url('grug-type') ?>">
+                  <a href="<?= url('drug-types') ?>">
                     <li class="sidebar-dropdown-menu-item">نوعیت دواها</li>
                   </a>
                 <?php endif; ?>
