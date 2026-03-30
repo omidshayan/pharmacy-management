@@ -172,7 +172,7 @@
                             <?php
                             $selectedCatName = $product['drug_type'];
                             ?>
-                            <select name="product_cat" class="form-control">
+                            <select name="drug_type" class="form-control">
                                 <?php foreach ($drug_types as $cat): ?>
                                     <?php if ($cat['type_name'] == $selectedCatName): ?>
                                         <option value="<?= htmlspecialchars($cat['type_name']) ?>" selected><?= htmlspecialchars($cat['type_name']) ?></option>
