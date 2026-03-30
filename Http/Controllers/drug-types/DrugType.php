@@ -52,15 +52,15 @@ class DrugType extends App
     }
 
     // edit expense category page
-    public function editProductUnit($id)
+    public function editDrugType($id)
     {
         $this->middleware(true, true, 'general');
 
         $branchId = $this->getBranchId();
 
-        $item = $this->db->select('SELECT * FROM products_units WHERE `id` = ? AND branch_id = ?', [$id, $branchId])->fetch();
+        $item = $this->db->select('SELECT * FROM drug_types WHERE `id` = ? AND branch_id = ?', [$id, $branchId])->fetch();
         if ($item != null) {
-            require_once(BASE_PATH . '/resources/views/app/products/products-units/edit-product-unit.php');
+            require_once(BASE_PATH . '/resources/views/app/products/drug-types/edit-drug-type.php');
             exit();
         } else {
             require_once(BASE_PATH . '/404.php');
@@ -69,26 +69,26 @@ class DrugType extends App
     }
 
     //  edit Product Unit Store
-    public function editProductUnitStore($request, $id)
+    public function editDrugTypeStore($request, $id)
     {
         $this->middleware(true, true, 'general', true, $request, true);
 
         // check empty form
-        if (empty($request['product_unit']) || empty($request['branch_id'])) {
+        if (empty($request['type_name']) || empty($request['branch_id'])) {
             $this->flashMessage('error', _emptyInputs);
         }
 
         $branchId = $this->getBranchId();
 
-        $item = $this->db->select('SELECT id, product_unit FROM products_units WHERE `product_unit` = ? AND branch_id = ?', [$request['product_unit'], $branchId])->fetch();
+        $item = $this->db->select('SELECT id, type_name FROM drug_types WHERE `type_name` = ? AND branch_id = ?', [$request['type_name'], $branchId])->fetch();
 
         if ($item) {
             if ($item['id'] != $id) {
                 $this->flashMessage('error', 'نام وارد شده تکراری است.');
             }
         }
-        $this->db->update('products_units', $id, array_keys($request), $request);
-        $this->flashMessageTo('success', _success, url('products-units'));
+        $this->db->update('drug_types', $id, array_keys($request), $request);
+        $this->flashMessageTo('success', _success, url('drug-types'));
     }
 
     // change status product Cat
