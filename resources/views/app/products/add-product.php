@@ -122,12 +122,12 @@
                             <input type="text" class="checkInput" value="<?= old('product_name') ?>" name="product_name" placeholder="نام دوا را وارد نمایید" maxlength="124" autofocus />
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب کمپانی</div>
-                            <select name="company">
-                                <option selected>کمپانی را انتخاب نمایید</option>
+                            <div class="label-form mb5 fs14">انتخاب کمپانی <?= _star ?></div>
+                            <select name="product_cat" class="checkSelect">
+                                <option selected disabled>کمپانی</option>
                                 <?php
-                                foreach ($companies as $company) { ?>
-                                    <option value="<?= $company['id'] ?>"><?= $company['company_name'] ?></option>
+                                foreach ($product_cats as $product_cat) { ?>
+                                    <option value="<?= $product_cat['product_cat_name'] ?>"><?= $product_cat['product_cat_name'] ?></option>
                                 <?php }
                                 ?>
                             </select>
@@ -218,6 +218,17 @@
                                 </div>
                             </div>
                             <div class="inputs d-flex">
+                                <div class="one">
+                                    <div class="label-form mb5 fs14">انتخاب کمپانی</div>
+                                    <select name="unit_type">
+                                        <option selected disabled>کمپانی را انتخاب نمایید</option>
+                                        <?php
+                                        foreach ($products_category as $product_category) { ?>
+                                            <option value="<?= $product_category['product_category_name'] ?>"><?= $product_category['product_category_name'] ?></option>
+                                        <?php }
+                                        ?>
+                                    </select>
+                                </div>
                                 <div class="one">
                                     <div class="label-form mb5 fs14">توضیحات</div>
                                     <textarea name="description" placeholder="توضیحات را وارد نمایید"></textarea>
