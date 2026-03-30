@@ -59,6 +59,13 @@ class Employee extends App
 
                 // insert new employee
                 $this->db->insert('employees', array_keys($request), $request);
+                $lastId = $this->db->lastInsertId();
+
+                $data = [
+                    'section_name' => 'general',
+                    'employee_id' => $lastId,
+                ];
+                $this->db->insert('permissions', array_keys($data), $data);
 
                 $this->db->commit();
 
