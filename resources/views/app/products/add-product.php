@@ -134,7 +134,7 @@
                     </div>
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع / بسته بندی دوا <?= _star ?></div>
+                            <div class="label-form mb5 fs14">بسته بندی دوا <?= _star ?></div>
                             <select name="package_type" class="checkSelect">
                                 <option selected disabled>انتخاب نوع</option>
                                 <?php
@@ -145,7 +145,7 @@
                             </select>
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">انتخاب نوع دوا</div>
+                            <div class="label-form mb5 fs14">انتخاب نوع دوا <?= _star ?></div>
                             <select name="drug_type" class="checkSelect">
                                 <option selected disabled>انتخاب نوع</option>
                                 <?php

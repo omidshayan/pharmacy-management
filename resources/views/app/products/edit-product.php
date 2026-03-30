@@ -145,7 +145,7 @@
 
                     <div class="inputs d-flex">
                         <div class="one">
-                            <div class="label-form mb5 fs14">نوع بسته‌بندی یا واحد دوا <?= _star ?></div>
+                            <div class="label-form mb5 fs14">نوع بسته‌بندی <?= _star ?></div>
                             <?php
                             $selectedPackageType = $product['package_type'];
                             ?>
@@ -168,12 +168,31 @@
                             </select>
                         </div>
                         <div class="one">
-                            <div class="label-form mb5 fs14">تعداد / مقدار در هر واحد <?= _star ?> </div>
-                            <input type="text" name="quantity_in_pack" value="<?= $product['quantity_in_pack'] ?>" placeholder="مقدار داخل هر بسته را وارد نمایید" maxlength="40" />
+                            <div class="label-form mb5 fs14">انتخاب نوع دوا <?= _star ?></div>
+                            <?php
+                            $selectedCatName = $product['drug_type'];
+                            ?>
+                            <select name="product_cat" class="form-control">
+                                <?php foreach ($drug_types as $cat): ?>
+                                    <?php if ($cat['type_name'] == $selectedCatName): ?>
+                                        <option value="<?= htmlspecialchars($cat['type_name']) ?>" selected><?= htmlspecialchars($cat['type_name']) ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+
+                                <?php foreach ($drug_types as $cat): ?>
+                                    <?php if ($cat['type_name'] != $selectedCatName): ?>
+                                        <option value="<?= htmlspecialchars($cat['type_name']) ?>"><?= htmlspecialchars($cat['type_name']) ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
 
                     <div class="inputs d-flex">
+                        <div class="one">
+                            <div class="label-form mb5 fs14">تعداد / مقدار در هر واحد <?= _star ?> </div>
+                            <input type="text" name="quantity_in_pack" value="<?= $product['quantity_in_pack'] ?>" placeholder="مقدار داخل هر بسته را وارد نمایید" maxlength="40" />
+                        </div>
                         <div class="one">
                             <div class="label-form mb5 fs14">انتخاب واحد کوچکتر</div>
                             <?php $selectedUnitType = $product['unit_type']; ?>
@@ -186,7 +205,6 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
                         <?= $this->branchSelectField(); ?>
                     </div>
 

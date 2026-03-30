@@ -162,6 +162,8 @@ class Product extends App
 
         $branchId = $this->getBranchId();
 
+        $drug_types = $this->db->select("SELECT * FROM drug_types WHERE `status` = ? AND branch_id = ?", [1, $branchId])->fetchAll();
+
         $product = $this->db->select('SELECT * FROM products WHERE `id` = ?', [$id])->fetch();
         $product_cats = $this->db->select('SELECT * FROM product_cat WHERE `status` = 1')->fetchAll();
         $products_units = $this->db->select('SELECT * FROM products_units WHERE `status` = 1')->fetchAll();
