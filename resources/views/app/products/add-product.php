@@ -126,8 +126,8 @@
                             <select name="company">
                                 <option selected>کمپانی را انتخاب نمایید</option>
                                 <?php
-                                foreach ($products_category as $product_category) { ?>
-                                    <option value="<?= $product_category['id'] ?>"><?= $product_category['product_category_name'] ?></option>
+                                foreach ($companies as $company) { ?>
+                                    <option value="<?= $company['id'] ?>"><?= $company['company_name'] ?></option>
                                 <?php }
                                 ?>
                             </select>
@@ -218,17 +218,6 @@
                                 </div>
                             </div>
                             <div class="inputs d-flex">
-                                <div class="one">
-                                    <div class="label-form mb5 fs14">انتخاب کمپانی</div>
-                                    <select name="unit_type">
-                                        <option selected disabled>کمپانی را انتخاب نمایید</option>
-                                        <?php
-                                        foreach ($products_category as $product_category) { ?>
-                                            <option value="<?= $product_category['product_category_name'] ?>"><?= $product_category['product_category_name'] ?></option>
-                                        <?php }
-                                        ?>
-                                    </select>
-                                </div>
                                 <div class="one">
                                     <div class="label-form mb5 fs14">توضیحات</div>
                                     <textarea name="description" placeholder="توضیحات را وارد نمایید"></textarea>
