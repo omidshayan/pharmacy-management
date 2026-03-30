@@ -23,7 +23,7 @@ include_once('public/alerts/toastr.php');
                 <div class="inputs d-flex">
                     <div class="one">
                         <div class="label-form mb5 fs14">عنوان نوعیت <?= _star ?> </div>
-                        <input type="text" name="product_unit" class="checkInput" value="<?= old('name') ?>" placeholder="نوعیت را وارد نمایید" autocomplete="off" autofocus />
+                        <input type="text" name="type_name" class="checkInput" value="<?= old('name') ?>" placeholder="نوعیت را وارد نمایید" autocomplete="off" autofocus />
                     </div>
                     <?= $this->branchSelectField(); ?>
                 </div>

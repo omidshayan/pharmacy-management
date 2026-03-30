@@ -17,20 +17,20 @@ class DrugType extends App
     }
 
     // productsUnitStore Store
-    public function productsUnitStore($request)
+    public function drugTypeStore($request)
     {
         $this->middleware(true, true, 'general', true, $request, true);
 
-        if (empty($request['product_unit']) || empty($request['branch_id'])) {
+        if (empty($request['type_name']) || empty($request['branch_id'])) {
             $this->flashMessage('error', _emptyInputs);
         }
 
-        $item = $this->db->select('SELECT product_unit FROM products_units WHERE `product_unit` = ?', [$request['product_unit']])->fetch();
+        $item = $this->db->select('SELECT type_name FROM drug_types WHERE `type_name` = ?', [$request['type_name']])->fetch();
 
-        if (!empty($item['product_unit'])) {
+        if (!empty($item['type_name'])) {
             $this->flashMessage('error', _repeat);
         } else {
-            $this->db->insert('products_units', array_keys($request), $request);
+            $this->db->insert('drug_types', array_keys($request), $request);
             $this->flashMessage('success', _success);
         }
     }
