@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Advanced Sidebar</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        direction: rtl;
+        background: #f1f2f6;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 270px;
+        height: 100vh;
+        background: linear-gradient(180deg, #1e272e, #2f3640);
+        position: fixed;
+        right: 0;
+        top: 0;
+        padding-top: 20px;
+        color: #fff;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Links */
+      .sidebar a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 20px;
+        color: #dcdde1;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        position: relative;
+      }
+
+      /* Hover effect */
+      .sidebar a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateX(-3px);
+      }
+
+      /* Active */
+      .sidebar a.active {
+        background: linear-gradient(90deg, #0fbcf9, #00a8ff);
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Left section */
+      .menu-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* SVG icons */
+      .icon svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      /* Arrow */
+      .arrow {
+        transition: transform 0.3s ease;
+        opacity: 0.7;
+      }
+
+      .arrow.rotate {
+        transform: rotate(180deg);
+      }
+
+      /* Submenu */
+      .submenu {
+        height: 0;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.2);
+        transition: height 0.35s ease;
+      }
+
+      /* submenu links */
+      .submenu a {
+        padding: 10px 45px;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: all 0.25s ease;
+      }
+
+      /* show items when open */
+      .submenu.open a {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* small hover */
+      .submenu a:hover {
+        padding-right: 50px;
+      }
+
+      /* smooth indicator bar */
+      .sidebar a::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: #0fbcf9;
+        transform: scaleY(0);
+        transition: 0.25s;
+      }
+
+      .sidebar a.active::before {
+        transform: scaleY(1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sidebar">
+      <ul>
+        <!-- Dashboard -->
+        <li>
+          <a href="#dashboard" data-page="dashboard">
+            <div class="menu-left">
+              <div class="icon">
+                <!-- dashboard icon -->
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M3 13h8V3H3v10zm10 8h8v-6h-8v6zM3 21h8v-6H3v6zm10-8h8V3h-8v10z"
+                  />
+                </svg>
+              </div>
+              داشبورد
+            </div>
+          </a>
+        </li>
+
+        <!-- Employees -->
+        <li>
+          <a href="#" class="menu-toggle">
+            <div class="menu-left">
+              <div class="icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.98 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                  />
+                </svg>
+              </div>
+              مدیریت کارمندان
+            </div>
+            <span class="arrow">▼</span>
+          </a>
+
+          <ul class="submenu">
+            <li>
+              <a href="#employee-list" data-page="employee-list"
+                >لیست کارمندان</a
+              >
+            </li>
+            <li>
+              <a href="#employee-add" data-page="employee-add">افزودن کارمند</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Students -->
+        <li>
+          <a href="#" class="menu-toggle">
+            <div class="menu-left">
+              <div class="icon">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13L3.74 9 12 4.74 20.26 9 12 16zm-7 2v2h14v-2H5z"
+                  />
+                </svg>
+              </div>
+              مدیریت شاگردان
+            </div>
+            <span class="arrow">▼</span>
+          </a>
+
+          <ul class="submenu">
+            <li>
+              <a href="#student-list" data-page="student-list">لیست شاگردان</a>
+            </li>
+            <li>
+              <a href="#student-add" data-page="student-add">افزودن شاگرد</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+<script>
+    function getCurrentPage() {
+    return window.location.hash.replace('#', '') || 'dashboard';
+}
+
+// باز کردن نرم submenu
+function openMenu(submenu, arrow) {
+    if (!submenu || !arrow) return;
+    submenu.classList.add('open');
+    submenu.style.height = submenu.scrollHeight + 'px';
+    arrow.classList.add('rotate');
+}
+
+// بستن نرم submenu
+function closeMenu(submenu, arrow) {
+    if (!submenu || !arrow) return;
+    submenu.style.height = submenu.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+        submenu.style.height = '0px';
+    });
+    submenu.classList.remove('open');
+    arrow.classList.remove('rotate');
+}
+
+// تابع کلی برای بستن تمام زیرمنوهای باز
+function closeAllOpenSubmenus(exceptThisOne = null) {
+    document.querySelectorAll('.submenu.open').forEach(openSubmenu => {
+        if (openSubmenu !== exceptThisOne) {
+            const arrow = openSubmenu.previousElementSibling.querySelector('.arrow');
+            closeMenu(openSubmenu, arrow);
+        }
+    });
+}
+
+// مدیریت کلیک روی منوهای دارای زیرمنو (Toggle)
+document.querySelectorAll('.menu-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        const submenu = this.nextElementSibling;
+        const arrow = this.querySelector('.arrow');
+
+        if (submenu.classList.contains('open')) {
+            closeMenu(submenu, arrow);
+        } else {
+            closeAllOpenSubmenus(submenu);
+            openMenu(submenu, arrow);
+        }
+    });
+});
+
+// مدیریت کلیک روی آیتم‌های بدون زیرمنو (برای بستن سایر بازها)
+document.querySelectorAll('.sidebar a:not(.menu-toggle)').forEach(simpleLink => {
+    simpleLink.addEventListener('click', function() {
+        // وقتی روی یک لینک معمولی کلیک شد، تمام زیرمنوها را ببند
+        closeAllOpenSubmenus();
+    });
+});
+
+// تعیین وضعیت اکتیو بر اساس URL یا Hash
+function setActive() {
+    const current = getCurrentPage();
+
+    // حذف کلاس active از تمام لینک‌ها
+    document.querySelectorAll('.sidebar a').forEach(a => {
+        a.classList.remove('active');
+    });
+
+    // پیدا کردن آیتم فعلی و فعال‌سازی آن
+    const activeLink = document.querySelector(`[data-page="${current}"]`);
+    
+    if (activeLink) {
+        activeLink.classList.add('active');
+
+        // اگر این آیتم داخل یک زیرمنو بود، والدش را باز کن
+        const parentSubmenu = activeLink.closest('.submenu');
+        if (parentSubmenu) {
+            const arrow = parentSubmenu.previousElementSibling.querySelector('.arrow');
+            openMenu(parentSubmenu, arrow);
+        } else {
+            // اگر آیتم انتخابی خودش در سطح اصلی بود، بقیه منوها را ببند
+            closeAllOpenSubmenus();
+        }
+    }
+}
+
+// تغییر صفحه دستی (برای دیتای نمایشی)
+document.querySelectorAll('[data-page]').forEach(link => {
+    link.addEventListener('click', function() {
+        window.location.hash = this.dataset.page;
+    });
+});
+
+window.addEventListener('load', setActive);
+window.addEventListener('hashchange', setActive);
+</script>
+
+  </body>
+</html>
