@@ -144,7 +144,7 @@ class User extends App
     public function showUsers()
     {
         $this->middleware(true, true, 'general');
-        $users = $this->db->select('SELECT * FROM users WHERE `status` != 0')->fetchAll();
+        $users = $this->db->select('SELECT * FROM users WHERE `status` != 2')->fetchAll();
         require_once(BASE_PATH . '/resources/views/app/users/show-users.php');
         exit();
     }
@@ -157,6 +157,9 @@ class User extends App
         $user = $this->db->select('SELECT * FROM users WHERE id = ?', [$id])->fetch();
 
         if ($user != null) {
+            if($user['is_default'] != null){
+                $this->flashMessage('error', 'حساب عمومی قابل ویرایش نیست!');
+            }
             require_once(BASE_PATH . '/resources/views/app/users/edit-user.php');
             exit();
         } else {
