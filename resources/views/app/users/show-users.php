@@ -1,4 +1,3 @@
-<!-- start sidebar -->
 <?php
 $title = 'نمایش فروشندگان / مشتریان';
 include_once('resources/views/layouts/header.php');
@@ -6,9 +5,7 @@ include_once('public/alerts/check-inputs.php');
 include_once('public/alerts/toastr.php');
 include_once('resources/views/scripts/users/live-search-user-details.php');
 ?>
-<!-- end sidebar -->
 
-<!-- Start content -->
 <div class="content">
     <div class="content-title"> نمایش مشتریان / فروشندگان
         <span class="help fs14 text-underline cursor-p color-orange" id="openModalBtn">(راهنما)</span>
@@ -18,7 +15,6 @@ include_once('resources/views/scripts/users/live-search-user-details.php');
     $help_content = _help_desc;
     include_once('resources/views/helps/help.php');
     ?>
-    <!-- start page content -->
 
     <!-- search box -->
     <div class="flex-justify-align mb10">
@@ -105,8 +101,6 @@ include_once('resources/views/scripts/users/live-search-user-details.php');
             ?>
         </div>
     </div>
-    <!-- end page content -->
 </div>
-<!-- End content -->
 
 <?php include_once('resources/views/layouts/footer.php') ?>
