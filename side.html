@@ -202,101 +202,104 @@
       </ul>
     </div>
 
-<script>
-    function getCurrentPage() {
-    return window.location.hash.replace('#', '') || 'dashboard';
-}
+    <script>
+      function getCurrentPage() {
+        return window.location.hash.replace("#", "") || "dashboard";
+      }
 
-// باز کردن نرم submenu
-function openMenu(submenu, arrow) {
-    if (!submenu || !arrow) return;
-    submenu.classList.add('open');
-    submenu.style.height = submenu.scrollHeight + 'px';
-    arrow.classList.add('rotate');
-}
+      // باز کردن نرم submenu
+      function openMenu(submenu, arrow) {
+        if (!submenu || !arrow) return;
+        submenu.classList.add("open");
+        submenu.style.height = submenu.scrollHeight + "px";
+        arrow.classList.add("rotate");
+      }
 
-// بستن نرم submenu
-function closeMenu(submenu, arrow) {
-    if (!submenu || !arrow) return;
-    submenu.style.height = submenu.scrollHeight + 'px';
-    requestAnimationFrame(() => {
-        submenu.style.height = '0px';
-    });
-    submenu.classList.remove('open');
-    arrow.classList.remove('rotate');
-}
+      // بستن نرم submenu
+      function closeMenu(submenu, arrow) {
+        if (!submenu || !arrow) return;
+        submenu.style.height = submenu.scrollHeight + "px";
+        requestAnimationFrame(() => {
+          submenu.style.height = "0px";
+        });
+        submenu.classList.remove("open");
+        arrow.classList.remove("rotate");
+      }
 
-// تابع کلی برای بستن تمام زیرمنوهای باز
-function closeAllOpenSubmenus(exceptThisOne = null) {
-    document.querySelectorAll('.submenu.open').forEach(openSubmenu => {
-        if (openSubmenu !== exceptThisOne) {
-            const arrow = openSubmenu.previousElementSibling.querySelector('.arrow');
+      // تابع کلی برای بستن تمام زیرمنوهای باز
+      function closeAllOpenSubmenus(exceptThisOne = null) {
+        document.querySelectorAll(".submenu.open").forEach((openSubmenu) => {
+          if (openSubmenu !== exceptThisOne) {
+            const arrow =
+              openSubmenu.previousElementSibling.querySelector(".arrow");
             closeMenu(openSubmenu, arrow);
-        }
-    });
-}
+          }
+        });
+      }
 
-// مدیریت کلیک روی منوهای دارای زیرمنو (Toggle)
-document.querySelectorAll('.menu-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        const submenu = this.nextElementSibling;
-        const arrow = this.querySelector('.arrow');
+      // مدیریت کلیک روی منوهای دارای زیرمنو (Toggle)
+      document.querySelectorAll(".menu-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          const submenu = this.nextElementSibling;
+          const arrow = this.querySelector(".arrow");
 
-        if (submenu.classList.contains('open')) {
+          if (submenu.classList.contains("open")) {
             closeMenu(submenu, arrow);
-        } else {
+          } else {
             closeAllOpenSubmenus(submenu);
             openMenu(submenu, arrow);
-        }
-    });
-});
+          }
+        });
+      });
 
-// مدیریت کلیک روی آیتم‌های بدون زیرمنو (برای بستن سایر بازها)
-document.querySelectorAll('.sidebar a:not(.menu-toggle)').forEach(simpleLink => {
-    simpleLink.addEventListener('click', function() {
-        // وقتی روی یک لینک معمولی کلیک شد، تمام زیرمنوها را ببند
-        closeAllOpenSubmenus();
-    });
-});
+      // مدیریت کلیک روی آیتم‌های بدون زیرمنو (برای بستن سایر بازها)
+      document
+        .querySelectorAll(".sidebar a:not(.menu-toggle)")
+        .forEach((simpleLink) => {
+          simpleLink.addEventListener("click", function () {
+            // وقتی روی یک لینک معمولی کلیک شد، تمام زیرمنوها را ببند
+            closeAllOpenSubmenus();
+          });
+        });
 
-// تعیین وضعیت اکتیو بر اساس URL یا Hash
-function setActive() {
-    const current = getCurrentPage();
+      // تعیین وضعیت اکتیو بر اساس URL یا Hash
+      function setActive() {
+        const current = getCurrentPage();
 
-    // حذف کلاس active از تمام لینک‌ها
-    document.querySelectorAll('.sidebar a').forEach(a => {
-        a.classList.remove('active');
-    });
+        // حذف کلاس active از تمام لینک‌ها
+        document.querySelectorAll(".sidebar a").forEach((a) => {
+          a.classList.remove("active");
+        });
 
-    // پیدا کردن آیتم فعلی و فعال‌سازی آن
-    const activeLink = document.querySelector(`[data-page="${current}"]`);
-    
-    if (activeLink) {
-        activeLink.classList.add('active');
+        // پیدا کردن آیتم فعلی و فعال‌سازی آن
+        const activeLink = document.querySelector(`[data-page="${current}"]`);
 
-        // اگر این آیتم داخل یک زیرمنو بود، والدش را باز کن
-        const parentSubmenu = activeLink.closest('.submenu');
-        if (parentSubmenu) {
-            const arrow = parentSubmenu.previousElementSibling.querySelector('.arrow');
+        if (activeLink) {
+          activeLink.classList.add("active");
+
+          // اگر این آیتم داخل یک زیرمنو بود، والدش را باز کن
+          const parentSubmenu = activeLink.closest(".submenu");
+          if (parentSubmenu) {
+            const arrow =
+              parentSubmenu.previousElementSibling.querySelector(".arrow");
             openMenu(parentSubmenu, arrow);
-        } else {
+          } else {
             // اگر آیتم انتخابی خودش در سطح اصلی بود، بقیه منوها را ببند
             closeAllOpenSubmenus();
+          }
         }
-    }
-}
+      }
 
-// تغییر صفحه دستی (برای دیتای نمایشی)
-document.querySelectorAll('[data-page]').forEach(link => {
-    link.addEventListener('click', function() {
-        window.location.hash = this.dataset.page;
-    });
-});
+      // تغییر صفحه دستی (برای دیتای نمایشی)
+      document.querySelectorAll("[data-page]").forEach((link) => {
+        link.addEventListener("click", function () {
+          window.location.hash = this.dataset.page;
+        });
+      });
 
-window.addEventListener('load', setActive);
-window.addEventListener('hashchange', setActive);
-</script>
-
+      window.addEventListener("load", setActive);
+      window.addEventListener("hashchange", setActive);
+    </script>
   </body>
 </html>

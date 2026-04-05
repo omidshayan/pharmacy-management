@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 30, 2026 at 09:23 PM
+-- Generation Time: Apr 05, 2026 at 08:47 PM
 -- Server version: 9.1.0
 -- PHP Version: 7.4.33
 
@@ -37,19 +37,34 @@ CREATE TABLE IF NOT EXISTS `account_balances` (
   `total_in` decimal(15,2) DEFAULT NULL,
   `year` varchar(4) NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
+  `is_default` tinyint DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`branch_id`,`user_id`),
   KEY `idx_user_branch` (`user_id`,`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `account_balances`
 --
 
-INSERT INTO `account_balances` (`id`, `branch_id`, `user_id`, `balance`, `total_out`, `total_in`, `year`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL, NULL, '', 1, '2026-02-08 12:36:45', '2026-03-24 15:21:37');
+INSERT INTO `account_balances` (`id`, `branch_id`, `user_id`, `balance`, `total_out`, `total_in`, `year`, `status`, `is_default`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, NULL, NULL, NULL, '', 1, 1, '2026-02-08 12:36:45', '2026-04-03 20:38:17');
+
+--
+-- Triggers `account_balances`
+--
+DROP TRIGGER IF EXISTS `prevent_default_account_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_default_account_delete` BEFORE DELETE ON `account_balances` FOR EACH ROW BEGIN
+    IF OLD.is_default = 1 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Cannot delete default account balance!';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -121,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `attribute_values` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -156,6 +171,18 @@ INSERT INTO `branches` (`id`, `customer_id`, `branch_name`, `en_branch_name`, `p
 (3, 3, 'شعبه سوم', 'center', '', '', NULL, '', 2, 'ali', '2025-08-10 15:27:42', NULL),
 (4, 4, 'شعبه چهارم\r\n', 'center', '', '', NULL, '', 2, 'ali', '2025-08-10 15:27:42', NULL),
 (5, 5, 'شعبه پنجم\r\n', 'center', '', '', NULL, '', 2, 'ali', '2025-08-10 15:27:42', NULL);
+
+--
+-- Triggers `branches`
+--
+DROP TRIGGER IF EXISTS `prevent_branches_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_branches_delete` BEFORE DELETE ON `branches` FOR EACH ROW BEGIN
+    SIGNAL SQLSTATE '45000' 
+    SET MESSAGE_TEXT = 'Deleting branches is not allowed!';
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -196,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `cash_boxes` (
   `opening_balance` decimal(15,2) DEFAULT NULL,
   `allow_negative` tinyint NOT NULL DEFAULT '1' COMMENT '1-> allow, 2-> not allow',
   `status` tinyint NOT NULL DEFAULT '1',
+  `is_default` tinyint DEFAULT NULL,
   `who_it` varchar(32) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -206,9 +234,23 @@ CREATE TABLE IF NOT EXISTS `cash_boxes` (
 -- Dumping data for table `cash_boxes`
 --
 
-INSERT INTO `cash_boxes` (`id`, `branch_id`, `name`, `balance_amount`, `type`, `currency`, `opening_balance`, `allow_negative`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(1, 1, 'دخل', -100.00, 'cash', 'af', NULL, 1, 1, 'محمد', '2026-02-08 23:10:38', '2026-03-24 15:21:37'),
-(2, 1, 'صندوق اصلی', NULL, 'cash', 'af', 0.00, 1, 1, 'محمد', '2026-02-09 00:54:36', '2026-03-21 19:26:50');
+INSERT INTO `cash_boxes` (`id`, `branch_id`, `name`, `balance_amount`, `type`, `currency`, `opening_balance`, `allow_negative`, `status`, `is_default`, `who_it`, `created_at`, `updated_at`) VALUES
+(1, 1, 'دخل', NULL, 'cash', 'af', NULL, 1, 1, 1, 'محمد', '2026-02-08 23:10:38', '2026-04-04 16:31:41'),
+(2, 1, 'صندوق اصلی', NULL, 'cash', 'af', 0.00, 1, 1, 1, 'محمد', '2026-02-09 00:54:36', '2026-04-02 23:45:52');
+
+--
+-- Triggers `cash_boxes`
+--
+DROP TRIGGER IF EXISTS `prevent_default_cashbox_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_default_cashbox_delete` BEFORE DELETE ON `cash_boxes` FOR EACH ROW BEGIN
+    IF OLD.is_default = 1 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Cannot delete default cash box!';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -228,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `cash_transactions` (
   `exchange_rate` decimal(16,0) DEFAULT NULL,
   `converted_amount` decimal(16,0) DEFAULT NULL,
   `previous_balance` decimal(15,2) DEFAULT NULL,
-  `type` tinyint NOT NULL COMMENT '5->in, 6->out',
+  `type` tinyint NOT NULL COMMENT '5->in, 6->out, 7-> remnantsPast, 8->creditPast',
   `date` varchar(64) DEFAULT NULL,
   `category_id` tinyint DEFAULT NULL,
   `ref_type` int DEFAULT NULL COMMENT 'sale | purchase | manual | salary',
@@ -239,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `cash_transactions` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=267 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -259,13 +301,6 @@ CREATE TABLE IF NOT EXISTS `center_fund` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `center_fund`
---
-
-INSERT INTO `center_fund` (`id`, `branch_id`, `amount`, `year`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(2, 1, 0.00, '1404', 1, 'احمد رضا 1', '2025-11-28 16:09:42', '2025-11-30 14:15:51');
 
 -- --------------------------------------------------------
 
@@ -308,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -368,13 +403,20 @@ DROP TABLE IF EXISTS `drug_types`;
 CREATE TABLE IF NOT EXISTS `drug_types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `branch_id` int NOT NULL,
-  `type_name` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `type_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
-  `who_it` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `who_it` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `drug_types`
+--
+
+INSERT INTO `drug_types` (`id`, `branch_id`, `type_name`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
+(4, 1, 'for no 1', 1, 'کاظم حسینی', '2026-04-06 01:16:09', '2026-04-06 01:16:17');
 
 -- --------------------------------------------------------
 
@@ -402,6 +444,8 @@ DROP TABLE IF EXISTS `edit_draft_items`;
 CREATE TABLE IF NOT EXISTS `edit_draft_items` (
   `id` int NOT NULL AUTO_INCREMENT,
   `original_item_id` int DEFAULT NULL,
+  `branch_id` int NOT NULL,
+  `invoice_type` tinyint NOT NULL,
   `invoice_id` int DEFAULT NULL,
   `product_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
@@ -412,15 +456,19 @@ CREATE TABLE IF NOT EXISTS `edit_draft_items` (
   `quantity` int NOT NULL,
   `discount` decimal(15,2) DEFAULT NULL,
   `item_total_price` decimal(15,2) DEFAULT NULL,
-  `product_name` int DEFAULT NULL,
+  `product_name` varchar(128) DEFAULT NULL,
   `quantity_in_pack` int DEFAULT NULL,
   `package_price_buy` decimal(15,2) DEFAULT NULL,
   `unit_price_buy` decimal(15,2) DEFAULT NULL,
-  `who_it` varchar(16) DEFAULT NULL,
+  `warehouse_id` int DEFAULT NULL,
+  `location` varchar(128) DEFAULT NULL,
+  `edit_version` int DEFAULT NULL,
+  `is_confirmed` tinyint DEFAULT '0',
+  `expiration_date` varchar(128) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -456,15 +504,15 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `employee_name` (`employee_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `employees`
 --
 
 INSERT INTO `employees` (`id`, `branch_id`, `employee_name`, `father_name`, `phone`, `password`, `email`, `address`, `position`, `role`, `verify_token`, `forgot_token`, `forgot_token_expire`, `remember_token`, `expire_remember_token`, `image`, `description`, `salary_price`, `who_it`, `state`, `super_admin`, `notif`, `created_at`, `updated_at`) VALUES
-(1, 100, 'suport', NULL, 11, '$2y$10$EfLQ0PKX4GeGGXnbfeNCdeao/DXcMSDb2Cm99gbyrLmuovnifQfki', 'ali.afg@gmail.com', NULL, '', 3, NULL, '1daa771ddafb5d1cdc6968fa34a02a4de8c28ed632288dfd33d403619c458ea9', '2025-03-01 13:47:53', NULL, NULL, '2024-09-01-23-53-55_66d4bf4bc0f96.jpg', NULL, 2000, '1', 1, 3, 2, '2024-09-01 23:53:55', '2026-02-03 13:09:03'),
-(2, 1, 'Admin', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, '1c723bf94501846ae6fb69b2820688222d999f3268d9e14010d4740b6ffdf835', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-03-31 01:50:25');
+(1, 100, 'کاظم حسینی', NULL, 11, '$2y$10$EfLQ0PKX4GeGGXnbfeNCdeao/DXcMSDb2Cm99gbyrLmuovnifQfki', 'ali.afg@gmail.com', NULL, '', 3, NULL, '1daa771ddafb5d1cdc6968fa34a02a4de8c28ed632288dfd33d403619c458ea9', '2025-03-01 13:47:53', NULL, NULL, '2024-09-01-23-53-55_66d4bf4bc0f96.jpg', NULL, 2000, '1', 1, 3, 2, '2024-09-01 23:53:55', '2026-02-03 13:09:03'),
+(2, 1, 'کاظم حسینی', '', 66, '$2y$10$Ul3s3Yod6SWPGOw6N1fi.OcUu2jQgwNf0B5odk0V1JTVsqJmowtsa', NULL, '', 'مدیر', 1, NULL, NULL, NULL, '040537e5e40ea7957eaa9174da161f22862a60b5c570825f5c8072c44dc49fde', '1', NULL, '', 6666, 'کاظم حسینی', 1, NULL, 1, '2026-02-03 13:08:58', '2026-04-06 01:15:01');
 
 -- --------------------------------------------------------
 
@@ -585,13 +633,6 @@ CREATE TABLE IF NOT EXISTS `financial_summary` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
---
--- Dumping data for table `financial_summary`
---
-
-INSERT INTO `financial_summary` (`id`, `branch_id`, `initial_balance`, `total_sales_amount`, `total_purchase_amount`, `total_profit`, `total_expense`, `total_cash_in`, `total_cash_out`, `total_debt_to_users`, `total_debt_from_users`, `total_sales_count`, `total_purchases_count`, `total_sales_discount`, `total_purchase_discount`, `current_balance`, `total_return_from_purchase`, `total_return_from_sales`, `year`, `status`, `created_at`, `updated_at`) VALUES
-(15, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2025-08-10 15:27:42', '2025-09-27 16:55:54');
-
 -- --------------------------------------------------------
 
 --
@@ -612,13 +653,6 @@ CREATE TABLE IF NOT EXISTS `funds` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `funds`
---
-
-INSERT INTO `funds` (`id`, `branch_id`, `fund_type`, `total`, `income`, `transferred`, `year`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'main_fund', 500.00, 87259.00, 0.00, 1404, 1, '2025-11-23 19:23:29', '2026-02-08 17:16:09');
 
 -- --------------------------------------------------------
 
@@ -669,7 +703,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   PRIMARY KEY (`id`),
   KEY `product_name` (`product_name`),
   KEY `warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -701,7 +735,7 @@ CREATE TABLE IF NOT EXISTS `inventory_movements` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -724,8 +758,7 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   `payment_type` tinyint NOT NULL COMMENT '1-> naghd, 2-> nesie',
   `ancillary_expenses` decimal(12,2) DEFAULT NULL,
   `image` varchar(128) DEFAULT NULL,
-  `year` int DEFAULT NULL,
-  `month` tinyint DEFAULT NULL,
+  `is_edited` tinyint DEFAULT NULL,
   `status` tinyint DEFAULT '1',
   `description` varchar(1024) DEFAULT NULL,
   `who_it` varchar(128) DEFAULT NULL,
@@ -737,7 +770,7 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   KEY `date` (`date`),
   KEY `invoice_number` (`invoice_number`),
   KEY `idx_branch_user` (`branch_id`,`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -773,7 +806,7 @@ CREATE TABLE IF NOT EXISTS `invoice_items` (
   KEY `invoice_id` (`invoice_id`),
   KEY `product_id` (`product_id`),
   KEY `idx_invoice_id` (`invoice_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -824,7 +857,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`id`),
   KEY `idx_user_status_created` (`user_id`,`status`,`created_at`),
   KEY `branch_id` (`branch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -844,15 +877,7 @@ CREATE TABLE IF NOT EXISTS `not_access_logs` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `not_access_logs`
---
-
-INSERT INTO `not_access_logs` (`id`, `user_id`, `section_name`, `page_address`, `ip_address`, `user_agent`, `status`, `created_at`, `updated_at`) VALUES
-(22, 124, 'general', '/pharmacy-management/', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 1, '2026-03-31 01:50:20', NULL),
-(23, 124, 'general', '/pharmacy-management/', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 1, '2026-03-31 01:50:20', NULL);
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -868,7 +893,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `permissions`
@@ -893,14 +918,14 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `positions`
 --
 
 INSERT INTO `positions` (`id`, `branch_id`, `name`, `who_it`, `state`, `created_at`, `updated_at`) VALUES
-(1, 1, 'حسابدار', 'Admin', 1, '2025-11-07 22:01:20', '2026-01-04 16:12:44');
+(1, 1, 'حسابدار', 'کاظم حسینی', 1, '2025-11-07 22:01:20', '2026-01-04 16:12:44');
 
 -- --------------------------------------------------------
 
@@ -936,7 +961,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `product_code` (`product_code`),
   KEY `idx_branch_product` (`branch_id`,`product_name`),
   KEY `award` (`reorder_point`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `branch_id`, `product_name`, `product_code`, `package_price_buy`, `package_price_sell`, `unit_price_buy`, `unit_price_sell`, `product_cat`, `package_type`, `quantity_in_pack`, `unit_type`, `reorder_point`, `description`, `product_image`, `company`, `drug_type`, `who_it`, `status`, `created_at`, `updated_at`) VALUES
+(7, 1, 'for drug', '', 500.00, 600.00, NULL, NULL, 'for test 1', 'for cat  1', 1, NULL, 0, '', NULL, NULL, 'for no 1', 'کاظم حسینی', 1, '2026-04-06 01:16:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -955,7 +987,14 @@ CREATE TABLE IF NOT EXISTS `products_units` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `products_units`
+--
+
+INSERT INTO `products_units` (`id`, `branch_id`, `global`, `product_unit`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
+(7, 1, 0, 'for cat  1', 1, 'کاظم حسینی', '2026-04-06 01:15:52', '2026-04-06 01:16:00');
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1039,14 @@ CREATE TABLE IF NOT EXISTS `product_cat` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `product_cat`
+--
+
+INSERT INTO `product_cat` (`id`, `branch_id`, `global`, `product_cat_name`, `who_it`, `status`, `created_at`, `updated_at`) VALUES
+(4, 1, 0, 'for test 1', 'کاظم حسینی', 1, '2026-04-06 01:15:31', '2026-04-06 01:15:39');
 
 -- --------------------------------------------------------
 
@@ -1205,7 +1251,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `branch_id`, `sell_any_situation`, `buy_any_situation`, `expiration_date`, `warehouse`, `help_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 2, 2, 2, 1, '2025-04-01 13:30:36', '2026-03-15 15:49:35');
+(1, 1, 1, 2, 2, 1, 1, '2025-04-01 13:30:36', '2026-04-03 23:38:58');
 
 -- --------------------------------------------------------
 
@@ -1224,6 +1270,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_customer` tinyint DEFAULT NULL,
   `is_seller` tinyint DEFAULT NULL,
   `remnants_past` decimal(15,2) DEFAULT NULL,
+  `credit_past` decimal(15,2) DEFAULT NULL,
   `reagent` int DEFAULT NULL,
   `reagent_phone` int DEFAULT NULL,
   `address` varchar(512) DEFAULT NULL,
@@ -1231,24 +1278,39 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_image` varchar(254) DEFAULT NULL,
   `father_name` varchar(30) DEFAULT NULL,
   `status` tinyint NOT NULL DEFAULT '1',
+  `is_default` tinyint DEFAULT NULL,
   `who_it` varchar(64) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `branch_id`, `user_name`, `phone`, `email`, `password`, `is_customer`, `is_seller`, `remnants_past`, `reagent`, `reagent_phone`, `address`, `description`, `user_image`, `father_name`, `status`, `who_it`, `created_at`, `updated_at`) VALUES
-(1, 1, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, 0, 0, '', '', NULL, NULL, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
-(2, 2, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, 0, 0, '', '', NULL, NULL, 2, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
-(3, 3, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, 0, 0, '', '', NULL, NULL, 2, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
-(4, 4, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, 0, 0, '', '', NULL, NULL, 2, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
-(5, 5, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, 0, 0, '', '', NULL, NULL, 2, 'کاظم حسینی', '2026-03-24 15:21:01', NULL);
+INSERT INTO `users` (`id`, `branch_id`, `user_name`, `phone`, `email`, `password`, `is_customer`, `is_seller`, `remnants_past`, `credit_past`, `reagent`, `reagent_phone`, `address`, `description`, `user_image`, `father_name`, `status`, `is_default`, `who_it`, `created_at`, `updated_at`) VALUES
+(1, 1, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, NULL, 0, 0, '', '', NULL, NULL, 1, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
+(2, 2, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, NULL, 0, 0, '', '', NULL, NULL, 2, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
+(3, 3, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, NULL, 0, 0, '', '', NULL, NULL, 2, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
+(4, 4, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, NULL, 0, 0, '', '', NULL, NULL, 2, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL),
+(5, 5, 'حساب عمومی', '1', NULL, '$2y$10$T1Tm9NDhpsC4wuuQWU8vDejws1SUZqDZ7hV03Q0Lw7FYDV4/41m6O', 1, 1, 0.00, NULL, 0, 0, '', '', NULL, NULL, 2, 1, 'کاظم حسینی', '2026-03-24 15:21:01', NULL);
+
+--
+-- Triggers `users`
+--
+DROP TRIGGER IF EXISTS `prevent_default_user_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_default_user_delete` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
+    IF OLD.is_default = 1 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Cannot delete default user!';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1282,7 +1344,7 @@ CREATE TABLE IF NOT EXISTS `users_transactions` (
   KEY `ref_id` (`ref_id`),
   KEY `branch_id` (`branch_id`),
   KEY `idx_user_branch_status_date` (`user_id`,`branch_id`,`status`,`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -1353,19 +1415,44 @@ CREATE TABLE IF NOT EXISTS `warehouses` (
   `branch_id` int NOT NULL,
   `manager_id` int DEFAULT NULL,
   `is_active` tinyint NOT NULL DEFAULT '1',
+  `is_default` tinyint DEFAULT NULL,
   `who_it` varchar(32) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `warehouses`
 --
 
-INSERT INTO `warehouses` (`id`, `type`, `warehouse_name`, `address`, `branch_id`, `manager_id`, `is_active`, `who_it`, `created_at`, `updated_at`) VALUES
-(4, 'shop', 'داخلی فروشگاه', NULL, 1, NULL, 1, '', '2026-02-15 17:22:38', NULL),
-(5, 'warehouse', 'انبار شماره 1', NULL, 1, NULL, 1, '', '2026-02-15 17:22:38', NULL);
+INSERT INTO `warehouses` (`id`, `type`, `warehouse_name`, `address`, `branch_id`, `manager_id`, `is_active`, `is_default`, `who_it`, `created_at`, `updated_at`) VALUES
+(1, 'shop', 'داخلی فروشگاه', NULL, 1, NULL, 1, 1, 'admin', '2026-02-15 17:22:38', NULL),
+(2, 'warehouse', 'انبار شماره 1', NULL, 1, NULL, 1, 1, 'admin', '2026-02-15 17:22:38', NULL);
+
+--
+-- Triggers `warehouses`
+--
+DROP TRIGGER IF EXISTS `prevent_default_warehouses_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_default_warehouses_delete` BEFORE DELETE ON `warehouses` FOR EACH ROW BEGIN
+    IF OLD.is_default = 1 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Cannot delete default cash box!';
+    END IF;
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `prevent_warehouses_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_warehouses_delete` BEFORE DELETE ON `warehouses` FOR EACH ROW BEGIN
+    IF OLD.is_default= 1 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Active warehouses cannot be deleted!';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1392,6 +1479,18 @@ CREATE TABLE IF NOT EXISTS `years` (
 
 INSERT INTO `years` (`id`, `year`, `calendar_type`, `status`, `activation_code`, `created_at`, `updated_at`) VALUES
 (6, 1405, 'jalali', 1, NULL, '2025-02-25 17:47:21', '2025-09-16 23:41:15');
+
+--
+-- Triggers `years`
+--
+DROP TRIGGER IF EXISTS `prevent_years_delete`;
+DELIMITER $$
+CREATE TRIGGER `prevent_years_delete` BEFORE DELETE ON `years` FOR EACH ROW BEGIN
+    SIGNAL SQLSTATE '45000' 
+    SET MESSAGE_TEXT = 'Deleting branches is not allowed!';
+END
+$$
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
