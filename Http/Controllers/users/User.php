@@ -30,7 +30,11 @@ class User extends App
     {
         $this->middleware(true, true, 'general', true, $request, true);
 
-        if (empty($request['user_name']) || empty($request['phone'])) {
+        if (
+            empty($request['user_name']) ||
+            empty($request['phone']) ||
+            empty($request['branch_id'])
+        ) {
             $this->flashMessage('error', _emptyInputs);
             return;
         }
@@ -56,10 +60,8 @@ class User extends App
         // check image
         $request['user_image'] = $this->handleImageUpload($request['user_image'], 'images/users');
 
-        // Default values for optional fields to avoid undefined index
-        if (!isset($request['branch_id'])) {
-            $request['branch_id'] = null;
-        }
+        $note = !empty($request['note']) ? $request['note'] : 'باقیداری اولیه هنگام ثبت کاربر';
+        unset($request['note']);
 
         try {
             $this->db->beginTransaction();
@@ -77,12 +79,57 @@ class User extends App
                 throw new \Exception('Cannot get new user id after insert.');
             }
 
+            $remnantsPast = isset($request['remnants_past']) && $request['remnants_past'] !== ''
+                ? (float)$request['remnants_past']
+                : 0;
+
+            $creditPast = isset($request['credit_past']) && $request['credit_past'] !== ''
+                ? (float)$request['credit_past']
+                : 0;
+
+
+            if ($remnantsPast > 0 && $creditPast > 0) {
+                throw new \Exception('کاربر نمی‌تواند همزمان قرضدار و طلبکار باشد');
+            }
+
+            $now = time();
+
+            $balance = 0;
+            $type    = null;
+            $amount  = 0;
+
+            if ($remnantsPast > 0) {
+                $balance = -abs($remnantsPast);
+                $type    = 7;
+                $amount  = $remnantsPast;
+            } elseif ($creditPast > 0) {
+                $balance = abs($creditPast);
+                $type    = 8;
+                $amount  = $creditPast;
+            }
+
             $accountBalance = [
-                'branch_id' => $request['branch_id'],
-                'user_id' => $newUserId,
+                'branch_id' => (int)$request['branch_id'],
+                'user_id'   => (int)$newUserId,
+                'balance'   => $balance,
             ];
 
             $this->db->insert('account_balances', array_keys($accountBalance), $accountBalance);
+            if ($amount > 0) {
+                $data = [
+                    'branch_id'   => (int)$request['branch_id'],
+                    'user_id'     => (int)$newUserId,
+                    'amount'      => $amount,
+                    'type'        => $type,
+                    'date'        => $now,
+                    'description'   => $note,
+                    'who_it'      => $request['who_it'] ?? 'system',
+                    'currency'    => $request['currency'] ?? 'af',
+                ];
+
+                $this->db->insert('cash_transactions', array_keys($data), $data);
+            }
+
 
             $this->db->commit();
 
